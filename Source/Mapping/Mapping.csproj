@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C729F50B-AE78-4072-896E-B920E327295B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Junior.Map</RootNamespace>
+    <AssemblyName>Junior.Map</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\BuildOutput\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\BuildOutput\Debug\Junior.Map.xml</DocumentationFile>
+    <WarningsAsErrors>1591</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\BuildOutput\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\BuildOutput\Release\Junior.Map.xml</DocumentationFile>
+    <WarningsAsErrors>1591</WarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\JuniorMap.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>Properties\CommonAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Adapter\AdapterConventionEligiblePropertyFinder.cs" />
+    <Compile Include="Adapter\AdapterFactoryExtensions.cs" />
+    <Compile Include="Adapter\AdapterFactoryGenerator.cs" />
+    <Compile Include="Adapter\AdapterFactory.cs" />
+    <Compile Include="Adapter\ConventionBasedAdapterFactory.cs" />
+    <Compile Include="Adapter\Conventions\NamesMatchAndCanBeAdaptedMappingConvention.cs" />
+    <Compile Include="Adapter\Conventions\NameAndTypeMatchAdapterMappingConvention.cs" />
+    <Compile Include="Adapter\DefaultAdapterFactory.cs" />
+    <Compile Include="Adapter\DefaultAdapterFactoryLocator.cs" />
+    <Compile Include="Adapter\IAdapterFactory.cs" />
+    <Compile Include="Adapter\IAdapterFactoryLocator.cs" />
+    <Compile Include="Adapter\AdapterFactoryConfiguration.cs" />
+    <Compile Include="Adapter\RecursiveConventionBasedAdapterFactory.cs" />
+    <Compile Include="Common\DefaultMappingConventionsProvider.cs" />
+    <Compile Include="Common\EnumerableExtensions.cs" />
+    <Compile Include="Common\IMapperLocator.cs" />
+    <Compile Include="Common\IConventionEligiblePropertyFinder.cs" />
+    <Compile Include="Common\IMappingConvention.cs" />
+    <Compile Include="Common\IMappingConfiguration.cs" />
+    <Compile Include="Common\IMapping.cs" />
+    <Compile Include="Common\IMappingProvider.cs" />
+    <Compile Include="Common\MappingConfigurationHelper.cs" />
+    <Compile Include="Common\MemberMapping.cs" />
+    <Compile Include="Mapper\ConventionBasedBidirectionalMapper.cs" />
+    <Compile Include="Mapper\DefaultMapper.cs" />
+    <Compile Include="Mapper\DefaultBidirectionalMapper.cs" />
+    <Compile Include="Mapper\DefaultMapperLocator.cs" />
+    <Compile Include="Mapper\IMapper.cs" />
+    <Compile Include="Mapper\MappingConventionAdapter.cs" />
+    <Compile Include="Mapper\EnumerableExtensions.cs" />
+    <Compile Include="Mapper\IMapperConvention.cs" />
+    <Compile Include="Mapper\MapperConventionEligiblePropertyFinder.cs" />
+    <Compile Include="Mapper\ConventionBasedMapper.cs" />
+    <Compile Include="Common\DefaultEnumerationMapper.cs" />
+    <Compile Include="Mapper\IMapperMapping.cs" />
+    <Compile Include="Mapper\Mapper.cs" />
+    <Compile Include="Mapper\MapperConfiguration.cs" />
+    <Compile Include="Mapper\MappingMethodGenerator.cs" />
+    <Compile Include="Common\MappingConventionHelper.cs" />
+    <Compile Include="Mapper\Conventions\NameAndTypeMatchMappingConvention.cs" />
+    <Compile Include="Mapper\Conventions\NamesMatchAndTypeIsEnumMappingConvention.cs" />
+    <Compile Include="Common\Conventions\OnlyNameMatchesButTypeIsConvertibleMappingConvention.cs" />
+    <Compile Include="Mapper\MemberMappingAction.cs" />
+    <Compile Include="Mapper\BidirectionalMapper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Junior.Common">
+      <HintPath>..\..\Binaries\JuniorCommon\Junior.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\JuniorMap.snk">
+      <Link>JuniorMap.snk</Link>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
