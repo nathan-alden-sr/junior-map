@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 
 using Junior.Common;
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Adapter
+namespace Junior.Map.Adapter
 {
 	/// <summary>
 	/// Stores mapping delegates used to map members of <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.

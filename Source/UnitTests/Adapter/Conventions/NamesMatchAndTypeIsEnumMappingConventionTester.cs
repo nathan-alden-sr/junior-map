@@ -1,12 +1,12 @@
 ﻿using Junior.Common;
-using Junior.Mapping.Mapper;
-using Junior.Mapping.Mapper.Conventions;
+using Junior.Map.Mapper;
+using Junior.Map.Mapper.Conventions;
 
 using NUnit.Framework;
 
 // ReSharper disable MemberHidesStaticFromOuterClass
 
-namespace Junior.Mapping.UnitTests.Adapter.Conventions
+namespace Junior.Map.UnitTests.Adapter.Conventions
 {
 	public static class NamesMatchAndTypeIsEnumMappingConventionTester
 	{

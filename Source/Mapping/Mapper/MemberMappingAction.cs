@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Provides a delegate used to retrieve the associated member's value.

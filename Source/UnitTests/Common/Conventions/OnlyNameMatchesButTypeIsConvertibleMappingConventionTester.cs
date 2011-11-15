@@ -2,14 +2,14 @@
 using System.ComponentModel;
 using System.Linq;
 
-using Junior.Mapping.Adapter;
-using Junior.Mapping.Common.Conventions;
+using Junior.Map.Adapter;
+using Junior.Map.Common.Conventions;
 
 using NUnit.Framework;
 
 // ReSharper disable MemberHidesStaticFromOuterClass
 
-namespace Junior.Mapping.UnitTests.Common.Conventions
+namespace Junior.Map.UnitTests.Common.Conventions
 {
 	public static class OnlyNameMatchesButTypeIsConvertibleMappingConventionTester
 	{

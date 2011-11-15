@@ -1,11 +1,11 @@
 ﻿using System;
 
 using Junior.Common;
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
 using NUnit.Framework;
 
-namespace Junior.Mapping.UnitTests.Common
+namespace Junior.Map.UnitTests.Common
 {
 	public static class DefaultEnumerationMapperTester
 	{

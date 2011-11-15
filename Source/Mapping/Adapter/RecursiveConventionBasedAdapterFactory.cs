@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 
 using Junior.Common;
-using Junior.Mapping.Adapter.Conventions;
-using Junior.Mapping.Common;
+using Junior.Map.Adapter.Conventions;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Adapter
+namespace Junior.Map.Adapter
 {
 	/// <summary>
 	/// Creates an adapter that recursively adapts a <typeparamref name="TSource"/> instance to <typeparamref name="TTarget"/> and creates custom mappings at runtime.

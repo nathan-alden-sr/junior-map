@@ -1,13 +1,13 @@
 using System;
 
 using Junior.Common;
-using Junior.Mapping.Adapter;
+using Junior.Map.Adapter;
 
 using NUnit.Framework;
 
 // ReSharper disable MemberHidesStaticFromOuterClass
 
-namespace Junior.Mapping.UnitTests.Adapter
+namespace Junior.Map.UnitTests.Adapter
 {
 	public static class AdapterFactoryTester
 	{

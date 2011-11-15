@@ -1,9 +1,9 @@
 using System;
 using System.Linq.Expressions;
 
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Represents ways to configure mappings for a property of <typeparamref name="TSource"/> when using a mapper.

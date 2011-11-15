@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
-using Junior.Mapping.Common;
-using Junior.Mapping.Mapper.Conventions;
+using Junior.Map.Common;
+using Junior.Map.Mapper.Conventions;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Maps a source object to a target object using common conventions, but does not allow creation of custom mappings at runtime.

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.UnitTests
+namespace Junior.Map.UnitTests
 {
 	public class MappingConfiguration<TSource, TTarget> : IMappingConfiguration<TSource, TTarget>
 	{

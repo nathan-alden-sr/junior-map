@@ -2,7 +2,7 @@
 
 using Junior.Common;
 
-namespace Junior.Mapping.Common
+namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Provides a delegate used to retrieve the associated member's value.

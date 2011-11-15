@@ -2,9 +2,8 @@ using System;
 using System.Collections.Generic;
 
 using Junior.Common;
-using Junior.Mapping.Common;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Locates instances of mappers.

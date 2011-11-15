@@ -2,11 +2,11 @@
 using System.Threading;
 
 using Junior.Common;
-using Junior.Mapping.Adapter;
+using Junior.Map.Adapter;
 
 using NUnit.Framework;
 
-namespace Junior.Mapping.UnitTests.Adapter
+namespace Junior.Map.UnitTests.Adapter
 {
 	public static class AdapterFactoryGeneratorTester
 	{

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Maps bi-directionally between two types and allows creation of custom mappings at runtime.

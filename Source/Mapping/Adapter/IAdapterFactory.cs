@@ -1,4 +1,4 @@
-namespace Junior.Mapping.Adapter
+namespace Junior.Map.Adapter
 {
 	/// <summary>
 	/// Represents a way to create an adapter that adapts a <typeparamref name="TSource"/> instance to <typeparamref name="TTarget"/>.

@@ -1,6 +1,6 @@
 using System;
 
-namespace Junior.Mapping.Common
+namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Represents a way to configure a mapping for a property of <typeparamref name="TSource"/>.

@@ -1,4 +1,4 @@
-﻿namespace Junior.Mapping.Mapper
+﻿namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Represents a way to map a source object to a target object.

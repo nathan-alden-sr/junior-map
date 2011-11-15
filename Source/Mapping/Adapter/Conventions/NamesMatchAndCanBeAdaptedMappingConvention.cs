@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 using Junior.Common;
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Adapter.Conventions
+namespace Junior.Map.Adapter.Conventions
 {
 	/// <summary>
 	/// Maps properties with the same name if the types can be adapted by another adapter factory.

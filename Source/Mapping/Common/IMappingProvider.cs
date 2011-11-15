@@ -1,4 +1,4 @@
-﻿namespace Junior.Mapping.Common
+﻿namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Represents a mapping provider that configures mappings between types at runtime.

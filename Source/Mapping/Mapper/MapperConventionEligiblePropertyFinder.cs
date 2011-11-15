@@ -3,9 +3,9 @@ using System.Linq;
 using System.Reflection;
 
 using Junior.Common;
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Finds properties that are eligible for being mapped by convention when configuring mappers.

@@ -5,7 +5,7 @@ using System.Reflection;
 
 using Junior.Common;
 
-namespace Junior.Mapping.Common
+namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Extensions for the <see cref="IEnumerable{T}"/> type.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Junior.Mapping.Common
+namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Represents a way to map from <typeparamref name="TSource"/> to <typeparamref name="TTarget"/>.

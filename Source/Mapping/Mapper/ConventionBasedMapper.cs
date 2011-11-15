@@ -4,7 +4,7 @@ using System.Linq;
 
 using Junior.Common;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Maps a source object to a target object and allows creation of custom mappings at runtime.

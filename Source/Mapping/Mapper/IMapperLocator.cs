@@ -1,8 +1,6 @@
 ﻿using System;
 
-using Junior.Mapping.Mapper;
-
-namespace Junior.Mapping.Common
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Locates instances of mappers.

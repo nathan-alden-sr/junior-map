@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Junior.Mapping.Adapter
+namespace Junior.Map.Adapter
 {
 	/// <summary>
 	/// Locates instances of adapter factories.

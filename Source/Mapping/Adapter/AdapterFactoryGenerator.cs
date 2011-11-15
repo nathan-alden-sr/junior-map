@@ -6,9 +6,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 
 using Junior.Common;
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Adapter
+namespace Junior.Map.Adapter
 {
 	/// <summary>
 	/// Generates <see cref="IAdapterFactory{TSource,TTargetInterface}"/> instances given a set of mappings.

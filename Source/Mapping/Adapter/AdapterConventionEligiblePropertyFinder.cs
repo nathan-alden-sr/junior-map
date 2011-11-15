@@ -2,9 +2,9 @@
 using System.Reflection;
 
 using Junior.Common;
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Adapter
+namespace Junior.Map.Adapter
 {
 	/// <summary>
 	/// Finds properties that are eligible for being mapped by convention when configuring adapters.

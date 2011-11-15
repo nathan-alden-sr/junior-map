@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 using Junior.Common;
-using Junior.Mapping.Mapper;
+using Junior.Map.Mapper;
 
 using NUnit.Framework;
 
@@ -10,7 +10,7 @@ using Rhino.Mocks;
 
 // ReSharper disable MemberHidesStaticFromOuterClass
 
-namespace Junior.Mapping.UnitTests.Mapper
+namespace Junior.Map.UnitTests.Mapper
 {
 	public static class MapperTester
 	{

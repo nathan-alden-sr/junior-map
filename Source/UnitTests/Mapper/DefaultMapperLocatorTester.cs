@@ -1,8 +1,8 @@
-﻿using Junior.Mapping.Mapper;
+﻿using Junior.Map.Mapper;
 
 using NUnit.Framework;
 
-namespace Junior.Mapping.UnitTests.Mapper
+namespace Junior.Map.UnitTests.Mapper
 {
 	public static class DefaultMapperLocatorTester
 	{

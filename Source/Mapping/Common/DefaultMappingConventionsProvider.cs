@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-using Junior.Mapping.Common.Conventions;
+using Junior.Map.Common.Conventions;
 
-namespace Junior.Mapping.Common
+namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Provides default conventions used by convention-based mappers and adapters.

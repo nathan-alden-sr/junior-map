@@ -1,4 +1,4 @@
-namespace Junior.Mapping.Common
+namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Represents a way to automatically configure mappings by convention.

@@ -4,7 +4,7 @@ using System.Linq;
 
 using Junior.Common;
 
-namespace Junior.Mapping.Adapter
+namespace Junior.Map.Adapter
 {
 	/// <summary>
 	/// Extension methods for the <see cref="IAdapterFactory{TSource,TTarget}"/> type.

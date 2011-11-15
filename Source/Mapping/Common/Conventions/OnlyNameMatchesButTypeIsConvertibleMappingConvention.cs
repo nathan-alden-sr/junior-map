@@ -6,7 +6,7 @@ using System.Reflection;
 
 using Junior.Common;
 
-namespace Junior.Mapping.Common.Conventions
+namespace Junior.Map.Common.Conventions
 {
 	/// <summary>
 	/// Maps properties with the same name and with types that are convertible between each other.

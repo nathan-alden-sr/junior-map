@@ -4,9 +4,9 @@ using System.Linq;
 using System.Reflection;
 
 using Junior.Common;
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Mapper.Conventions
+namespace Junior.Map.Mapper.Conventions
 {
 	/// <summary>
 	/// Maps properties with the same name and type.

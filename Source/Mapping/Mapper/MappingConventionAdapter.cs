@@ -1,6 +1,6 @@
-﻿using Junior.Mapping.Common;
+﻿using Junior.Map.Common;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Adapts an instance of <see cref="IMappingConvention"/> to <see cref="IMapperConvention"/> by encapsulation.

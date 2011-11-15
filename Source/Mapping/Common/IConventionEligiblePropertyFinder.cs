@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace Junior.Mapping.Common
+namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Finds properties that are eligible for being mapped by convention.

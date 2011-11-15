@@ -4,7 +4,7 @@ using System.Linq;
 
 using Junior.Common;
 
-namespace Junior.Mapping.Common
+namespace Junior.Map.Common
 {
 	/// <summary>
 	/// Maps a <typeparamref name="TSource"/> enum value to an equivalent <typeparamref name="TTarget"/> enum value

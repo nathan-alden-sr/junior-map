@@ -1,14 +1,14 @@
 ﻿using System.Linq;
 
 using Junior.Common;
-using Junior.Mapping.Adapter.Conventions;
-using Junior.Mapping.Mapper;
+using Junior.Map.Adapter.Conventions;
+using Junior.Map.Mapper;
 
 using NUnit.Framework;
 
 // ReSharper disable MemberHidesStaticFromOuterClass
 
-namespace Junior.Mapping.UnitTests.Adapter.Conventions
+namespace Junior.Map.UnitTests.Adapter.Conventions
 {
 	public static class NameAndTypeMatchAdapterMappingConventionTester
 	{

@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 
 using Junior.Common;
-using Junior.Mapping.Common;
+using Junior.Map.Common;
 
-namespace Junior.Mapping.Mapper
+namespace Junior.Map.Mapper
 {
 	/// <summary>
 	/// Generates a mapping method for <see cref="MemberMappingAction{TTarget,TSource}"/> instances and <see cref="MemberMapping{TSource}"/> instances contained in a mapper configuration.

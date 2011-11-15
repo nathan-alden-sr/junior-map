@@ -63,13 +63,13 @@
     <Compile Include="Adapter\DefaultAdapterFactory.cs" />
     <Compile Include="Adapter\DefaultAdapterFactoryLocator.cs" />
     <Compile Include="Adapter\IAdapterFactory.cs" />
-    <Compile Include="Adapter\IAdapterFactoryLocator.cs" />
     <Compile Include="Adapter\AdapterFactoryConfiguration.cs" />
+    <Compile Include="Adapter\IAdapterFactoryLocator.cs" />
     <Compile Include="Adapter\RecursiveConventionBasedAdapterFactory.cs" />
     <Compile Include="Common\DefaultMappingConventionsProvider.cs" />
     <Compile Include="Common\EnumerableExtensions.cs" />
-    <Compile Include="Common\IMapperLocator.cs" />
     <Compile Include="Common\IConventionEligiblePropertyFinder.cs" />
+    <Compile Include="Mapper\IMapperLocator.cs" />
     <Compile Include="Common\IMappingConvention.cs" />
     <Compile Include="Common\IMappingConfiguration.cs" />
     <Compile Include="Common\IMapping.cs" />
