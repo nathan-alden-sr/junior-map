@@ -3,7 +3,7 @@ Note that "I" refers to the creator of Junior, Nathan Alden, Sr.
 
 
 Purpose of JuniorMap
------------------------
+--------------------
 JuniorMap is a framework for mapping between two types and adapting one type to another.
 
 The original code was designed and written by Carlos Ribas. I have normalized it to more closely follow Junior's coding styles, where possible.

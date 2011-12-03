@@ -16,6 +16,15 @@ namespace Junior.Map.Adapter
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DefaultAdapterFactory{TSource,TTarget}"/> class.
+		/// A <see cref="DefaultAdapterFactoryLocator"/> instance will be used to locate adapter factories.
+		/// </summary>
+		public DefaultAdapterFactory()
+			: base(new DefaultAdapterFactoryLocator())
+		{
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DefaultAdapterFactory{TSource,TTarget}"/> class.
 		/// </summary>
 		/// <param name="locator">An adapter factory locator.</param>
 		public DefaultAdapterFactory(IAdapterFactoryLocator locator)
