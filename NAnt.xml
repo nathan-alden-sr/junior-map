@@ -6,13 +6,22 @@
 	<!-- Paths -->
 	<property name="TrunkDirectory" value="${path::get-directory-name(project::get-buildfile-path())}"/>
 	<property name="BinariesDirectory" value="${TrunkDirectory}\Binaries"/>
+	<property name="PackageDirectory" value="${TrunkDirectory}\Package"/>
 	<property name="PackagesDirectory" value="${TrunkDirectory}\Packages"/>
-	<property name="ResultsDirectory" value="${TrunkDirectory}\Results\${BuildConfiguration}\${Platform}"/>
+	<property name="ResultsDirectory" value="${TrunkDirectory}\Results\${BuildConfiguration}"/>
 	<property name="SourceDirectory" value="${TrunkDirectory}\Source"/>
-	<property name="BuildOutputDirectory" value="${SourceDirectory}\BuildOutput\${BuildConfiguration}\${Platform}"/>
+	<property name="BuildOutputDirectory" value="${SourceDirectory}\BuildOutput\${BuildConfiguration}"/>
 	<property name="SolutionPath" value="${SourceDirectory}\${project::get-name()}.sln"/>
 	<property name="BinariesPackageName" value="${project::get-name()} Binaries - ${BuildConfiguration} - ${Platform}.zip"/>
 	<property name="NUnitRunner" value="${BinariesDirectory}\NUnit\nunit-console.exe"/>
+	<property name="ILMergePath" value="${TrunkDirectory}\Binaries\ILMerge\ILMerge.exe"/>
+	<property name="DotNETFrameworkDirectory" value="${framework::get-assembly-directory('net-4.0')}"/>
+	<if test="${directory::exists('C:\Program Files')}">
+		<property name="DotNETFrameworkAssemblyDirectory" value="C:\Program Files\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client"/>
+	</if>
+	<if test="${directory::exists('C:\Program Files (x86)')}">
+		<property name="DotNETFrameworkAssemblyDirectory" value="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.0\Profile\Client"/>
+	</if>
 
 	<!-- Version information -->
 	<property name="Version.Major" value="1"/>
@@ -28,6 +37,7 @@
 		<call target="Compile"/>
 		<call target="CleanTestResults"/>
 		<call target="RunUnitTests"/>
+		<call target="ILMerge"/>
 		<call target="PackageBinaries"/>
 	</target>
 
@@ -74,7 +84,7 @@
 		<mkdir dir="${ResultsDirectory}"/>
 	</target>
 	<target name="RunUnitTests">
-		<property name="UnitTestAssemblyPath" value="${SourceDirectory}\BuildOutput\${BuildConfiguration}\Junior.Map.UnitTests.dll"/>
+		<property name="UnitTestAssemblyPath" value="${BuildOutputDirectory}\Junior.Map.UnitTests.dll"/>
 		<call target="ExecuteNUnit"/>
 	</target>
 	<target name="ExecuteNUnit">
@@ -90,15 +100,32 @@
 	</target>
 
 	<!-- Package -->
+	<target name="ILMerge">
+		<delete dir="${PackageDirectory}" includeemptydirs="true"/>
+		<mkdir dir="${PackageDirectory}"/>
+		<exec
+			program="${ILMergePath}"
+			failonerror="true"
+			workingdir="."
+			verbose="true">
+			<arg value="/targetplatform:v4,&quot;${DotNETFrameworkAssemblyDirectory}&quot;"/>
+			<arg value="/t:library"/>
+			<arg value="/keyfile:${SourceDirectory}\JuniorMap.snk"/>
+			<arg value="/internalize"/>
+			<arg value="/out:${PackageDirectory}\Junior.Map.dll"/>
+			<arg value="${BuildOutputDirectory}\Junior.Map.dll"/>
+			<arg value="${BuildOutputDirectory}\Junior.Common.dll"/>
+		</exec>
+	</target>
 	<target name="PackageBinaries">
 		<delete file="${PackagesDirectory}\${BinariesPackageName}" failonerror="false"/>
 		<zip zipfile="${PackagesDirectory}\${BinariesPackageName}">
-			<fileset basedir="${SourceDirectory}\BuildOutput\${BuildConfiguration}">
+			<fileset basedir="${PackageDirectory}">
 				<include name="*.dll"/>
 				<include name="*.pdb"/>
-				<include name="*.xml"/>
-				<exclude name="*nunit*"/>
-				<exclude name="*Rhino.Mocks*"/>
+			</fileset>
+			<fileset basedir="${PackageDirectory}">
+				<include name="${BuildOutputDirectory}\Junior.Map.xml"/>
 			</fileset>
 		</zip>
 	</target>
