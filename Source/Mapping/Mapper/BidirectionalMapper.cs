@@ -14,12 +14,12 @@ namespace Junior.Map.Mapper
 	{
 		private readonly MappingMethodGenerator _generator = new MappingMethodGenerator();
 		private readonly Lazy<Action<T2, T1>> _mapMethod;
+		private readonly MapperConventionEligiblePropertyFinder _propertyFinder = new MapperConventionEligiblePropertyFinder();
 		private readonly MapperConfiguration<T2, T1> _reverseConfiguration;
+		private IEnumerable<IMapperConvention> _conventions = Enumerable.Empty<IMapperConvention>();
 		private bool _isMappingConfigured;
-	    private readonly MapperConventionEligiblePropertyFinder _propertyFinder = new MapperConventionEligiblePropertyFinder();
-	    private IEnumerable<IMapperConvention> _conventions = Enumerable.Empty<IMapperConvention>();
 
-	    /// <summary>
+		/// <summary>
 		/// Initializes a new instance of the <see cref="BidirectionalMapper{T1,T2}"/> class.
 		/// </summary>
 		protected BidirectionalMapper()
@@ -67,54 +67,54 @@ namespace Junior.Map.Mapper
 			_reverseConfiguration.Validate();
 		}
 
-	    private void ConfigureReverseMapping()
+		private void ConfigureReverseMapping()
 		{
 			if (_isMappingConfigured)
 			{
 				return;
 			}
 
-		    _conventions = GetConventions();
-		    ApplyReverseConventions(_reverseConfiguration);
-		    ConfigureCustomMapping(_reverseConfiguration);
-		    _isMappingConfigured = true;
+			_conventions = GetConventions();
+			ApplyReverseConventions(_reverseConfiguration);
+			ConfigureCustomMapping(_reverseConfiguration);
+			_isMappingConfigured = true;
 		}
 
-        /// <summary>
-        /// Retrieves mapper conventions to use when configuring mappings.
-        /// </summary>
-        /// <returns>The mapper conventions to use when configuring mappings.</returns>
-        protected override IEnumerable<IMapperConvention> GetConventions()
-        {
-            yield return new NameAndTypeMatchMappingConvention();
-            foreach (IMapperConvention convention in DefaultMappingConventionsProvider.DefaultConventions.AsMapperConventions())
-            {
-                yield return convention;
-            }
-        }
+		/// <summary>
+		/// Retrieves mapper conventions to use when configuring mappings.
+		/// </summary>
+		/// <returns>The mapper conventions to use when configuring mappings.</returns>
+		protected override IEnumerable<IMapperConvention> GetConventions()
+		{
+			yield return new NameAndTypeMatchMappingConvention();
+			foreach (IMapperConvention convention in DefaultMappingConventionsProvider.DefaultConventions.AsMapperConventions())
+			{
+				yield return convention;
+			}
+		}
 
-	    /// <summary>
-	    /// Allows configuration of custom mappings at runtime through the specified mapper configuration.
-	    /// </summary>
-	    /// <param name="configuration">A mapper configuration.</param>
-	    protected virtual void ConfigureCustomMapping(MapperConfiguration<T2, T1> configuration)
-	    {	        
-	    }
+		/// <summary>
+		/// Allows configuration of custom mappings at runtime through the specified mapper configuration.
+		/// </summary>
+		/// <param name="configuration">A mapper configuration.</param>
+		protected virtual void ConfigureCustomMapping(MapperConfiguration<T2, T1> configuration)
+		{
+		}
 
-	    private void ApplyConventions(MapperConfiguration<T1, T2> configuration)
-	    {
-	        foreach (IMapperConvention convention in _conventions)
-	        {
-	            convention.Apply(_propertyFinder, configuration);
-	        }
-	    }
+		private void ApplyConventions(MapperConfiguration<T1, T2> configuration)
+		{
+			foreach (IMapperConvention convention in _conventions)
+			{
+				convention.Apply(_propertyFinder, configuration);
+			}
+		}
 
-	    private void ApplyReverseConventions(MapperConfiguration<T2, T1> configuration)
-	    {
-	        foreach (IMapperConvention convention in _conventions)
-	        {
-	            convention.Apply(_propertyFinder, configuration);
-	        }
-	    }
+		private void ApplyReverseConventions(MapperConfiguration<T2, T1> configuration)
+		{
+			foreach (IMapperConvention convention in _conventions)
+			{
+				convention.Apply(_propertyFinder, configuration);
+			}
+		}
 	}
 }

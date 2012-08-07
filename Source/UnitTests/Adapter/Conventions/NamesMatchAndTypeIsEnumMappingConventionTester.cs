@@ -1,7 +1,6 @@
 ﻿using Junior.Common;
 using Junior.Map.Common.Conventions;
 using Junior.Map.Mapper;
-using Junior.Map.Mapper.Conventions;
 
 using NUnit.Framework;
 

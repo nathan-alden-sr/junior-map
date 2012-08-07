@@ -24,30 +24,30 @@ namespace Junior.Map.UnitTests.Adapter
 
 		#endregion
 
-	    private class DefaultAdapterFactory<TSource, TTarget> : AdapterFactory<TSource, TTarget> 
-            where TSource : class 
-            where TTarget : class
-        {
-        }
+		private class DefaultAdapterFactory<TSource, TTarget> : AdapterFactory<TSource, TTarget>
+			where TSource : class
+			where TTarget : class
+		{
+		}
 
 		[TestFixture]
 		public class When_adapting_from_one_type_to_another_using_default_convention_based_factory
 		{
 			#region Test types
 
-            public enum FooLetter
-            {
-                A,
-                B,
-                C
-            }
+			public enum FooLetter
+			{
+				A,
+				B,
+				C
+			}
 
-            public enum BarLetter
-            {
-                A,
-                B,
-                C
-            }
+			public enum BarLetter
+			{
+				A,
+				B,
+				C
+			}
 
 			public class Foo
 			{
@@ -75,11 +75,11 @@ namespace Junior.Map.UnitTests.Adapter
 					set;
 				}
 
-                public FooLetter Letter
-                {
-                    get;
-                    set;
-                }
+				public FooLetter Letter
+				{
+					get;
+					set;
+				}
 			}
 
 			public interface IBar
@@ -104,10 +104,10 @@ namespace Junior.Map.UnitTests.Adapter
 					get;
 				}
 
-                BarLetter Letter
-                {
-                    get;
-                }
+				BarLetter Letter
+				{
+					get;
+				}
 			}
 
 			#endregion
@@ -125,7 +125,7 @@ namespace Junior.Map.UnitTests.Adapter
 				                		          	{
 				                		          		Id = Guid.NewGuid()
 				                		          	},
-                                        Letter = FooLetter.B
+				                		Letter = FooLetter.B
 				                	};
 				IBar bar = systemUnderTest.Create(sourceFoo);
 
@@ -135,7 +135,7 @@ namespace Junior.Map.UnitTests.Adapter
 				Assert.That(bar.RefType, Is.Not.Null);
 				Assert.That(bar.RefType.Id, Is.Not.Null);
 				Assert.That(bar.RefType.Id, Is.EqualTo(sourceFoo.RefType.Id));
-			    Assert.That(bar.Letter.ToString(), Is.EqualTo(sourceFoo.Letter.ToString()));
+				Assert.That(bar.Letter.ToString(), Is.EqualTo(sourceFoo.Letter.ToString()));
 			}
 
 			[Test]

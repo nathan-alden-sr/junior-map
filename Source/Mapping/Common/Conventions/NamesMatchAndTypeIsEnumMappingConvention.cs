@@ -55,8 +55,8 @@ namespace Junior.Map.Common.Conventions
 				PropertyInfo sourcePropertyInfo = sourceProperties.FindMatchingProperty(tempEligibleProperty.Name);
 				Type nullableSourceUnderlyingType = sourcePropertyInfo != null ? Nullable.GetUnderlyingType(sourcePropertyInfo.PropertyType) : null;
 
-				if (sourcePropertyInfo == null || 
-                    (!sourcePropertyInfo.PropertyType.IsEnum && (nullableSourceUnderlyingType == null || !nullableSourceUnderlyingType.IsEnum)))
+				if (sourcePropertyInfo == null ||
+				    (!sourcePropertyInfo.PropertyType.IsEnum && (nullableSourceUnderlyingType == null || !nullableSourceUnderlyingType.IsEnum)))
 				{
 					continue;
 				}
@@ -93,8 +93,8 @@ namespace Junior.Map.Common.Conventions
 			}
 		}
 
-        private class DefaultEnumerationMapper<TSource, TTarget> : EnumerationMapper<TSource, TTarget>
-        {
-        }
-    }
+		private class DefaultEnumerationMapper<TSource, TTarget> : EnumerationMapper<TSource, TTarget>
+		{
+		}
+	}
 }

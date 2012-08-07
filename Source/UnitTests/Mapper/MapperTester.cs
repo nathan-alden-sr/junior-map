@@ -27,11 +27,11 @@ namespace Junior.Map.UnitTests.Mapper
 
 		#endregion
 
-	    private class DefaultMapper<T1, T2> : Mapper<T1, T2>
-	    {
-	    }
+		private class DefaultMapper<T1, T2> : Mapper<T1, T2>
+		{
+		}
 
-	    [TestFixture]
+		[TestFixture]
 		public class When_mapping_a_type_with_nested_types_using_default_mapper
 		{
 			#region Test types
@@ -283,7 +283,7 @@ namespace Junior.Map.UnitTests.Mapper
 					configuration.Map(target => target.likeRefType).From(foo => foo.RefType);
 				}
 
-                protected override void ConfigureCustomMapping(MapperConfiguration<Bar, Foo> configuration)
+				protected override void ConfigureCustomMapping(MapperConfiguration<Bar, Foo> configuration)
 				{
 					configuration.Map(target => target.A).From(bar => bar.likeA);
 					configuration.Map(target => target.B).From(bar => bar.likeB);
@@ -706,6 +706,134 @@ namespace Junior.Map.UnitTests.Mapper
 		}
 
 		[TestFixture]
+		public class When_mapping_from_one_type_to_another_using_standard_bidirectional_mapper
+		{
+			#region Test types
+
+			public class Foo
+			{
+				public string A
+				{
+					get;
+					set;
+				}
+
+				public string B
+				{
+					get;
+					set;
+				}
+
+				public int C
+				{
+					get;
+					set;
+				}
+
+				public SimpleRefType RefType
+				{
+					get;
+					set;
+				}
+			}
+
+			public class Bar
+			{
+				public string A
+				{
+					get;
+					set;
+				}
+
+				public string B
+				{
+					get;
+					set;
+				}
+
+				public int C
+				{
+					get;
+					set;
+				}
+
+				public SimpleRefType RefType
+				{
+					get;
+					set;
+				}
+			}
+
+			private class DefaultBidirectionalMapper<T1, T2> : BidirectionalMapper<T1, T2>
+			{
+			}
+
+			#endregion
+
+			[Test]
+			public void Must_assign_all_settable_properties_picked_up_by_convention()
+			{
+				var sourceFoo = new Foo();
+				var targetBar = new Bar();
+
+				sourceFoo.A = "SourceA";
+				sourceFoo.B = "SourceB";
+				sourceFoo.C = 1;
+				sourceFoo.RefType = new SimpleRefType
+				                    	{
+				                    		Id = Guid.NewGuid()
+				                    	};
+
+				targetBar.A = "WrongA";
+				targetBar.B = "WrongB";
+				targetBar.C = 0;
+				targetBar.RefType = null;
+
+				var systemUnderTest = new DefaultBidirectionalMapper<Foo, Bar>();
+
+				systemUnderTest.Map(sourceFoo, targetBar);
+
+				Assert.That(targetBar.A, Is.EqualTo(sourceFoo.A));
+				Assert.That(targetBar.B, Is.EqualTo(sourceFoo.B));
+				Assert.That(targetBar.C, Is.EqualTo(sourceFoo.C));
+				Assert.That(targetBar.RefType, Is.Not.Null);
+				Assert.That(targetBar.RefType.Id, Is.Not.Null);
+				Assert.That(targetBar.RefType.Id, Is.EqualTo(sourceFoo.RefType.Id));
+			}
+
+			[Test]
+			public void Must_assign_all_settable_properties_picked_up_by_convention_in_reverse_case_too()
+			{
+				var targetFoo = new Foo();
+				var sourceBar = new Bar();
+
+				targetFoo.A = "FooA";
+				targetFoo.B = "FooB";
+				targetFoo.C = 1;
+				targetFoo.RefType = null;
+
+				sourceBar.A = "BarA";
+				sourceBar.B = "BarB";
+				sourceBar.C = 0;
+				sourceBar.RefType = new SimpleRefType
+				                    	{
+				                    		Id = Guid.NewGuid()
+				                    	};
+
+				var systemUnderTest = new DefaultBidirectionalMapper<Foo, Bar>();
+
+				systemUnderTest.Map(sourceBar, targetFoo);
+
+				Assert.That(targetFoo.A, Is.EqualTo(sourceBar.A));
+				Assert.That(targetFoo.B, Is.EqualTo(sourceBar.B));
+				Assert.That(targetFoo.C, Is.EqualTo(sourceBar.C));
+				Assert.That(targetFoo.RefType, Is.Not.Null);
+				Assert.That(targetFoo.RefType.Id, Is.Not.Null);
+				Assert.That(targetFoo.RefType.Id, Is.EqualTo(sourceBar.RefType.Id));
+			}
+		}
+
+		[TestFixture]
 		public class When_mapping_from_one_type_to_another_using_standard_one_way_mapper
 		{
 			#region Test types
@@ -938,135 +1066,6 @@ namespace Junior.Map.UnitTests.Mapper
 				var systemUnderTest = new DefaultMapper<Foo, NonAutoMappableBar>();
 
 				Assert.Throws<Exception>(systemUnderTest.Validate, "A mapping was not provided for target property 'Bar.Integers' from source 'Foo'.");
-			}
-		}
-
-		[TestFixture]
-		public class When_mapping_from_one_type_to_another_using_standard_bidirectional_mapper
-		{
-			#region Test types
-
-			public class Foo
-			{
-				public string A
-				{
-					get;
-					set;
-				}
-
-				public string B
-				{
-					get;
-					set;
-				}
-
-				public int C
-				{
-					get;
-					set;
-				}
-
-				public SimpleRefType RefType
-				{
-					get;
-					set;
-				}
-			}
-
-			public class Bar
-			{
-				public string A
-				{
-					get;
-					set;
-				}
-
-				public string B
-				{
-					get;
-					set;
-				}
-
-				public int C
-				{
-					get;
-					set;
-				}
-
-				public SimpleRefType RefType
-				{
-					get;
-					set;
-				}
-			}
-
-		    private class DefaultBidirectionalMapper<T1,T2> : BidirectionalMapper<T1,T2>
-		    {
-		        
-		    }
-
-			#endregion            
-
-			[Test]
-			public void Must_assign_all_settable_properties_picked_up_by_convention()
-			{
-				var sourceFoo = new Foo();
-				var targetBar = new Bar();
-
-				sourceFoo.A = "SourceA";
-				sourceFoo.B = "SourceB";
-				sourceFoo.C = 1;
-				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
-
-				targetBar.A = "WrongA";
-				targetBar.B = "WrongB";
-				targetBar.C = 0;
-				targetBar.RefType = null;
-
-				var systemUnderTest = new DefaultBidirectionalMapper<Foo, Bar>();
-
-				systemUnderTest.Map(sourceFoo, targetBar);
-
-				Assert.That(targetBar.A, Is.EqualTo(sourceFoo.A));
-				Assert.That(targetBar.B, Is.EqualTo(sourceFoo.B));
-				Assert.That(targetBar.C, Is.EqualTo(sourceFoo.C));
-				Assert.That(targetBar.RefType, Is.Not.Null);
-				Assert.That(targetBar.RefType.Id, Is.Not.Null);
-				Assert.That(targetBar.RefType.Id, Is.EqualTo(sourceFoo.RefType.Id));
-			}
-
-			[Test]
-			public void Must_assign_all_settable_properties_picked_up_by_convention_in_reverse_case_too()
-			{
-				var targetFoo = new Foo();
-				var sourceBar = new Bar();
-
-				targetFoo.A = "FooA";
-				targetFoo.B = "FooB";
-				targetFoo.C = 1;
-				targetFoo.RefType = null;
-
-				sourceBar.A = "BarA";
-				sourceBar.B = "BarB";
-				sourceBar.C = 0;
-				sourceBar.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
-
-				var systemUnderTest = new DefaultBidirectionalMapper<Foo, Bar>();
-
-				systemUnderTest.Map(sourceBar, targetFoo);
-
-				Assert.That(targetFoo.A, Is.EqualTo(sourceBar.A));
-				Assert.That(targetFoo.B, Is.EqualTo(sourceBar.B));
-				Assert.That(targetFoo.C, Is.EqualTo(sourceBar.C));
-				Assert.That(targetFoo.RefType, Is.Not.Null);
-				Assert.That(targetFoo.RefType.Id, Is.Not.Null);
-				Assert.That(targetFoo.RefType.Id, Is.EqualTo(sourceBar.RefType.Id));
 			}
 		}
 	}

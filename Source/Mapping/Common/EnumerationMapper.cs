@@ -6,9 +6,9 @@ using Junior.Common;
 
 namespace Junior.Map.Common
 {
-    /// <summary>
+	/// <summary>
 	/// Maps a <typeparamref name="TSource"/> enum value to an equivalent <typeparamref name="TTarget"/> enum value
-    /// if <typeparamref name="TTarget"/> has all fields in <typeparamref name="TSource"/>.
+	/// if <typeparamref name="TTarget"/> has all fields in <typeparamref name="TSource"/>.
 	/// <see cref="EnumerationMapper{TSource,TTarget}"/> automatically configures mappings and optionally allows customization.
 	/// Supports enum types and their nullable equivalents. <typeparamref name="TSource"/> and <typeparamref name="TTarget"/> must be either both nullable or both non-nullable.
 	/// </summary>
@@ -16,8 +16,8 @@ namespace Junior.Map.Common
 	/// <typeparam name="TTarget">The target enum type.</typeparam>
 	public abstract class EnumerationMapper<TSource, TTarget> : IMappingProvider
 	{
+		private readonly EnumerationMapperConfiguration<TSource, TTarget> _configuration = new EnumerationMapperConfiguration<TSource, TTarget>();
 		private readonly bool _isNullableMap;
-        private readonly EnumerationMapperConfiguration<TSource, TTarget> _configuration = new EnumerationMapperConfiguration<TSource, TTarget>();
 		private readonly Type _sourceType;
 		private readonly Type _targetType;
 		private bool _isMapperConfigured;
@@ -77,7 +77,7 @@ namespace Junior.Map.Common
 				return default(TTarget);
 			}
 
-		    return _configuration.GetMappedValue(value);		    
+			return _configuration.GetMappedValue(value);
 		}
 
 		/// <summary>
@@ -96,26 +96,26 @@ namespace Junior.Map.Common
 
 			foreach (string targetName in targetNames.Intersect(sourceNames))
 			{
-			    _configuration.Map((TSource) Enum.Parse(_sourceType, targetName)).To((TTarget) Enum.Parse(_targetType, targetName));
-			}		    
-            ConfigureMapper(_configuration);
+				_configuration.Map((TSource)Enum.Parse(_sourceType, targetName)).To((TTarget)Enum.Parse(_targetType, targetName));
+			}
+			ConfigureMapper(_configuration);
 
 			ValidateConfiguration();
 			_isMapperConfigured = true;
 		}
 
-        /// <summary>
-        /// Allows configuration of custom mappings at runtime through the specified enumeration mapper configuration.
-        /// </summary>
-        /// <param name="configuration">An enumeration mapper configuration.</param>
-        protected virtual void ConfigureMapper(EnumerationMapperConfiguration<TSource, TTarget> configuration)
-        {            
-        }
+		/// <summary>
+		/// Allows configuration of custom mappings at runtime through the specified enumeration mapper configuration.
+		/// </summary>
+		/// <param name="configuration">An enumeration mapper configuration.</param>
+		protected virtual void ConfigureMapper(EnumerationMapperConfiguration<TSource, TTarget> configuration)
+		{
+		}
 
 		private void ValidateConfiguration()
 		{
 			IEnumerable<string> unmappedSourceTypeValues = Enum.GetNames(_sourceType)
-                .Except(_configuration.Mappings.Select(mapping => mapping.SourceValue.ToString()))
+				.Except(_configuration.Mappings.Select(mapping => mapping.SourceValue.ToString()))
 				.ToArray();
 
 			if (!unmappedSourceTypeValues.Any())
