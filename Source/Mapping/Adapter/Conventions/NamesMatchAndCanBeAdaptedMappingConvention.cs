@@ -14,14 +14,14 @@ namespace Junior.Map.Adapter.Conventions
 	/// </summary>
 	public class NamesMatchAndCanBeAdaptedMappingConvention : IMappingConvention
 	{
-		private readonly IAdapterFactoryLocator _locator;
+		private readonly AdapterFactoryLocator _locator;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="NamesMatchAndCanBeAdaptedMappingConvention"/> class.
 		/// </summary>
 		/// <param name="locator">An adapter factory locator to use when locating adapter factories.</param>
 		/// <exception cref="ArgumentNullException">Thrown when <paramref name="locator"/> is null.</exception>
-		public NamesMatchAndCanBeAdaptedMappingConvention(IAdapterFactoryLocator locator)
+		public NamesMatchAndCanBeAdaptedMappingConvention(AdapterFactoryLocator locator)
 		{
 			locator.ThrowIfNull("locator");
 

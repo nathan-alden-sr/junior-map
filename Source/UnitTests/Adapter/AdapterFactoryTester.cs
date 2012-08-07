@@ -24,10 +24,30 @@ namespace Junior.Map.UnitTests.Adapter
 
 		#endregion
 
+	    private class DefaultAdapterFactory<TSource, TTarget> : AdapterFactory<TSource, TTarget> 
+            where TSource : class 
+            where TTarget : class
+        {
+        }
+
 		[TestFixture]
 		public class When_adapting_from_one_type_to_another_using_default_convention_based_factory
 		{
 			#region Test types
+
+            public enum FooLetter
+            {
+                A,
+                B,
+                C
+            }
+
+            public enum BarLetter
+            {
+                A,
+                B,
+                C
+            }
 
 			public class Foo
 			{
@@ -54,6 +74,12 @@ namespace Junior.Map.UnitTests.Adapter
 					get;
 					set;
 				}
+
+                public FooLetter Letter
+                {
+                    get;
+                    set;
+                }
 			}
 
 			public interface IBar
@@ -77,6 +103,11 @@ namespace Junior.Map.UnitTests.Adapter
 				{
 					get;
 				}
+
+                BarLetter Letter
+                {
+                    get;
+                }
 			}
 
 			#endregion
@@ -84,7 +115,7 @@ namespace Junior.Map.UnitTests.Adapter
 			[Test]
 			public void Must_adapt_properties_in_target_type()
 			{
-				var systemUnderTest = new DefaultAdapterFactory<Foo, IBar>(new DefaultAdapterFactoryLocator());
+				var systemUnderTest = new DefaultAdapterFactory<Foo, IBar>();
 				var sourceFoo = new Foo
 				                	{
 				                		A = "SourceA",
@@ -93,7 +124,8 @@ namespace Junior.Map.UnitTests.Adapter
 				                		RefType = new SimpleRefType
 				                		          	{
 				                		          		Id = Guid.NewGuid()
-				                		          	}
+				                		          	},
+                                        Letter = FooLetter.B
 				                	};
 				IBar bar = systemUnderTest.Create(sourceFoo);
 
@@ -103,6 +135,7 @@ namespace Junior.Map.UnitTests.Adapter
 				Assert.That(bar.RefType, Is.Not.Null);
 				Assert.That(bar.RefType.Id, Is.Not.Null);
 				Assert.That(bar.RefType.Id, Is.EqualTo(sourceFoo.RefType.Id));
+			    Assert.That(bar.Letter.ToString(), Is.EqualTo(sourceFoo.Letter.ToString()));
 			}
 
 			[Test]
@@ -120,7 +153,7 @@ namespace Junior.Map.UnitTests.Adapter
 				                		          	}
 				                	};
 				const int numberOfMappings = 10000000;
-				var systemUnderTest = new DefaultAdapterFactory<Foo, IBar>(new DefaultAdapterFactoryLocator());
+				var systemUnderTest = new DefaultAdapterFactory<Foo, IBar>();
 				var milliseconds = (long)StopwatchContext.Timed(() =>
 				                                                	{
 				                                                		for (int i = 0; i < numberOfMappings; i++)
@@ -207,11 +240,6 @@ namespace Junior.Map.UnitTests.Adapter
 
 			private class FooBarAdapterFactory : DefaultAdapterFactory<Foo, IBar>
 			{
-				public FooBarAdapterFactory()
-					: base(new DefaultAdapterFactoryLocator())
-				{
-				}
-
 				protected override void ConfigureCustomMapping(AdapterFactoryConfiguration<Foo, IBar> configuration)
 				{
 					configuration.Map(target => target.likeA).From(foo => foo.A);
@@ -354,7 +382,7 @@ namespace Junior.Map.UnitTests.Adapter
 				             		           		          	}
 				             		           	}
 				             	};
-				var systemUnderTest = new DefaultAdapterFactory<Person, IPerson>(new DefaultAdapterFactoryLocator());
+				var systemUnderTest = new DefaultAdapterFactory<Person, IPerson>();
 
 				systemUnderTest.Validate();
 
