@@ -54,7 +54,6 @@
     <Compile Include="Adapter\Conventions\NamesMatchAndTypeIsEnumMappingConventionTester.cs" />
     <Compile Include="Common\Conventions\OnlyNameMatchesButTypeIsConvertibleMappingConventionTester.cs" />
     <Compile Include="Common\DefaultEnumerationMapperTester.cs" />
-    <Compile Include="Mapper\DefaultMapperLocatorTester.cs" />
     <Compile Include="Adapter\AdapterFactoryTester.cs" />
     <Compile Include="Mapper\MapperTester.cs" />
     <Compile Include="Mapper\MappingMethodGeneratorTester.cs" />

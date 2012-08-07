@@ -27,7 +27,11 @@ namespace Junior.Map.UnitTests.Mapper
 
 		#endregion
 
-		[TestFixture]
+	    private class DefaultMapper<T1, T2> : Mapper<T1, T2>
+	    {
+	    }
+
+	    [TestFixture]
 		public class When_mapping_a_type_with_nested_types_using_default_mapper
 		{
 			#region Test types
@@ -271,7 +275,7 @@ namespace Junior.Map.UnitTests.Mapper
 
 			private class FooBarMapper : BidirectionalMapper<Foo, Bar>
 			{
-				protected override void ConfigureMapper(MapperConfiguration<Foo, Bar> configuration)
+				protected override void ConfigureCustomMapping(MapperConfiguration<Foo, Bar> configuration)
 				{
 					configuration.Map(target => target.likeA).From(foo => foo.A);
 					configuration.Map(target => target.likeB).From(foo => foo.B);
@@ -279,7 +283,7 @@ namespace Junior.Map.UnitTests.Mapper
 					configuration.Map(target => target.likeRefType).From(foo => foo.RefType);
 				}
 
-				protected override void ConfigureMapper(MapperConfiguration<Bar, Foo> configuration)
+                protected override void ConfigureCustomMapping(MapperConfiguration<Bar, Foo> configuration)
 				{
 					configuration.Map(target => target.A).From(bar => bar.likeA);
 					configuration.Map(target => target.B).From(bar => bar.likeB);
@@ -996,7 +1000,12 @@ namespace Junior.Map.UnitTests.Mapper
 				}
 			}
 
-			#endregion
+		    private class DefaultBidirectionalMapper<T1,T2> : BidirectionalMapper<T1,T2>
+		    {
+		        
+		    }
+
+			#endregion            
 
 			[Test]
 			public void Must_assign_all_settable_properties_picked_up_by_convention()

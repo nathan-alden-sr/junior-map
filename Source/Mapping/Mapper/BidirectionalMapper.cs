@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+using Junior.Map.Common;
+using Junior.Map.Mapper.Conventions;
 
 namespace Junior.Map.Mapper
 {
@@ -11,8 +16,10 @@ namespace Junior.Map.Mapper
 		private readonly Lazy<Action<T2, T1>> _mapMethod;
 		private readonly MapperConfiguration<T2, T1> _reverseConfiguration;
 		private bool _isMappingConfigured;
+	    private readonly MapperConventionEligiblePropertyFinder _propertyFinder = new MapperConventionEligiblePropertyFinder();
+	    private IEnumerable<IMapperConvention> _conventions = Enumerable.Empty<IMapperConvention>();
 
-		/// <summary>
+	    /// <summary>
 		/// Initializes a new instance of the <see cref="BidirectionalMapper{T1,T2}"/> class.
 		/// </summary>
 		protected BidirectionalMapper()
@@ -60,21 +67,54 @@ namespace Junior.Map.Mapper
 			_reverseConfiguration.Validate();
 		}
 
-		/// <summary>
-		/// Allows configuration of custom mappings at runtime through the specified mapper configuration.
-		/// </summary>
-		/// <param name="configuration">A mapper configuration.</param>
-		protected abstract void ConfigureMapper(MapperConfiguration<T2, T1> configuration);
-
-		private void ConfigureReverseMapping()
+	    private void ConfigureReverseMapping()
 		{
 			if (_isMappingConfigured)
 			{
 				return;
 			}
 
-			ConfigureMapper(_reverseConfiguration);
-			_isMappingConfigured = true;
+		    _conventions = GetConventions();
+		    ApplyReverseConventions(_reverseConfiguration);
+		    ConfigureCustomMapping(_reverseConfiguration);
+		    _isMappingConfigured = true;
 		}
+
+        /// <summary>
+        /// Retrieves mapper conventions to use when configuring mappings.
+        /// </summary>
+        /// <returns>The mapper conventions to use when configuring mappings.</returns>
+        protected override IEnumerable<IMapperConvention> GetConventions()
+        {
+            yield return new NameAndTypeMatchMappingConvention();
+            foreach (IMapperConvention convention in DefaultMappingConventionsProvider.DefaultConventions.AsMapperConventions())
+            {
+                yield return convention;
+            }
+        }
+
+	    /// <summary>
+	    /// Allows configuration of custom mappings at runtime through the specified mapper configuration.
+	    /// </summary>
+	    /// <param name="configuration">A mapper configuration.</param>
+	    protected virtual void ConfigureCustomMapping(MapperConfiguration<T2, T1> configuration)
+	    {	        
+	    }
+
+	    private void ApplyConventions(MapperConfiguration<T1, T2> configuration)
+	    {
+	        foreach (IMapperConvention convention in _conventions)
+	        {
+	            convention.Apply(_propertyFinder, configuration);
+	        }
+	    }
+
+	    private void ApplyReverseConventions(MapperConfiguration<T2, T1> configuration)
+	    {
+	        foreach (IMapperConvention convention in _conventions)
+	        {
+	            convention.Apply(_propertyFinder, configuration);
+	        }
+	    }
 	}
 }
