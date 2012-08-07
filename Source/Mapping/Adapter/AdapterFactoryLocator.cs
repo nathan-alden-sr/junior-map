@@ -108,7 +108,7 @@ namespace Junior.Map.Adapter
         /// </summary>
         /// <typeparam name="TSource">The source type.</typeparam>
         /// <typeparam name="TTarget">The target type.</typeparam>
-        /// <typeparam name="TAdapterType">The adapter factory type to use.  It must have a default construcutor.</typeparam>
+        /// <typeparam name="TAdapterType">The adapter factory type to use.  It must have a default constructor.</typeparam>
         public void RegisterAdapterFactory<TSource, TTarget, TAdapterType>()
             where TAdapterType : class, IAdapterFactory<TSource, TTarget>, new()
             where TTarget : class
