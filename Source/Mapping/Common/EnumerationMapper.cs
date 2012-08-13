@@ -21,6 +21,7 @@ namespace Junior.Map.Common
 		private readonly Type _sourceType;
 		private readonly Type _targetType;
 		private bool _isMapperConfigured;
+        private static object _lockObject = new object();
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EnumerationMapper{TSource,TTarget}"/> class.
@@ -91,17 +92,25 @@ namespace Junior.Map.Common
 				return;
 			}
 
-			IEnumerable<string> sourceNames = Enum.GetNames(_sourceType);
-			IEnumerable<string> targetNames = Enum.GetNames(_targetType);
+            lock (_lockObject)
+            {
+                if (_isMapperConfigured)
+                {
+                    return;
+                }
 
-			foreach (string targetName in targetNames.Intersect(sourceNames))
-			{
-			    _configuration.Map((TSource) Enum.Parse(_sourceType, targetName)).To((TTarget) Enum.Parse(_targetType, targetName));
-			}		    
-            ConfigureMapper(_configuration);
+                IEnumerable<string> sourceNames = Enum.GetNames(_sourceType);
+                IEnumerable<string> targetNames = Enum.GetNames(_targetType);
 
-			ValidateConfiguration();
-			_isMapperConfigured = true;
+                foreach (string targetName in targetNames.Intersect(sourceNames))
+                {
+                    _configuration.Map((TSource)Enum.Parse(_sourceType, targetName)).To((TTarget)Enum.Parse(_targetType, targetName));
+                }
+                ConfigureMapper(_configuration);
+
+                ValidateConfiguration();
+                _isMapperConfigured = true;
+            }
 		}
 
         /// <summary>

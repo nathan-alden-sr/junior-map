@@ -18,6 +18,7 @@ namespace Junior.Map.Mapper
 		private bool _isMappingConfigured;
 	    private readonly MapperConventionEligiblePropertyFinder _propertyFinder = new MapperConventionEligiblePropertyFinder();
 	    private IEnumerable<IMapperConvention> _conventions = Enumerable.Empty<IMapperConvention>();
+        private static object _lockObject = new object();
 
 	    /// <summary>
 		/// Initializes a new instance of the <see cref="BidirectionalMapper{T1,T2}"/> class.
@@ -74,10 +75,18 @@ namespace Junior.Map.Mapper
 				return;
 			}
 
-		    _conventions = GetConventions();
-		    ApplyReverseConventions(_reverseConfiguration);
-		    ConfigureCustomMapping(_reverseConfiguration);
-		    _isMappingConfigured = true;
+            lock (_lockObject)
+            {
+                if (_isMappingConfigured)
+                {
+                    return;
+                }
+
+                _conventions = GetConventions();
+                ApplyReverseConventions(_reverseConfiguration);
+                ConfigureCustomMapping(_reverseConfiguration);
+                _isMappingConfigured = true;                
+            }
 		}
 
         /// <summary>

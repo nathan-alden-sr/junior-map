@@ -23,6 +23,7 @@ namespace Junior.Map.Mapper
         private readonly MapperConventionEligiblePropertyFinder _propertyFinder = new MapperConventionEligiblePropertyFinder();
         private IEnumerable<IMapperConvention> _conventions = Enumerable.Empty<IMapperConvention>();
         private bool _isMapperConfigured;
+        private static object _lockObject = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Mapper{TSource,TTarget}"/> class.
@@ -171,22 +172,19 @@ namespace Junior.Map.Mapper
                 return;
             }
 
-            ConfigureMapper(_configuration);
-            _isMapperConfigured = true;
-        }
+            lock (_lockObject)
+            {
+                if (_isMapperConfigured)
+                {
+                    return;
+                }
 
-        /// <summary>
-        /// Allows configuration of custom mappings at runtime through the specified mapper configuration.
-        /// </summary>
-        /// <param name="configuration">A mapper configuration.</param>
-        /// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is null.</exception>
-        private void ConfigureMapper(MapperConfiguration<TSource, TTarget> configuration)
-        {
-            configuration.ThrowIfNull("configuration");
+                _conventions = GetConventions();
+                ApplyConventions(_configuration);
+                ConfigureCustomMapping(_configuration);
 
-            _conventions = GetConventions();
-            ApplyConventions(configuration);
-            ConfigureCustomMapping(configuration);
+                _isMapperConfigured = true;
+            }
         }
 
         /// <summary>
