@@ -24,6 +24,7 @@ namespace Junior.Map.Adapter
         private readonly AdapterConventionEligiblePropertyFinder _propertyFinder = new AdapterConventionEligiblePropertyFinder();
         private IEnumerable<IMappingConvention> _conventions = Enumerable.Empty<IMappingConvention>();
         private bool _isMappingConfigured;
+        private static object _lockObject = new object();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AdapterFactory{TSource,TTarget}"/> class with default behaviors.
@@ -185,8 +186,16 @@ namespace Junior.Map.Adapter
                 return;
             }
 
-            ConfigureAdapter(_configuration);
-            _isMappingConfigured = true;
+            lock (_lockObject)
+            {
+                if (_isMappingConfigured)
+                {
+                    return;
+                }
+
+                ConfigureAdapter(_configuration);
+                _isMappingConfigured = true;                
+            }
         }
     }
 }
