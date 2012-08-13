@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 //------------------------------------------------------------------------------
 
 [assembly: ComVisibleAttribute(false)]
-[assembly: AssemblyVersionAttribute("1.1.0.0")]
-[assembly: AssemblyFileVersionAttribute("1.1.0.0")]
-[assembly: AssemblyInformationalVersionAttribute("1.1.0.0")]
+[assembly: AssemblyVersionAttribute("1.1.1.0")]
+[assembly: AssemblyFileVersionAttribute("1.1.1.0")]
+[assembly: AssemblyInformationalVersionAttribute("1.1.1.0")]
 

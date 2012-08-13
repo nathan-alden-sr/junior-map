@@ -12,6 +12,7 @@ namespace Junior.Map.Mapper
 	/// </summary>
 	public abstract class BidirectionalMapper<T1, T2> : Mapper<T1, T2>
 	{
+		private static object _lockObject = new object();
 		private readonly MappingMethodGenerator _generator = new MappingMethodGenerator();
 		private readonly Lazy<Action<T2, T1>> _mapMethod;
 		private readonly MapperConventionEligiblePropertyFinder _propertyFinder = new MapperConventionEligiblePropertyFinder();
@@ -74,10 +75,18 @@ namespace Junior.Map.Mapper
 				return;
 			}
 
-			_conventions = GetConventions();
-			ApplyReverseConventions(_reverseConfiguration);
-			ConfigureCustomMapping(_reverseConfiguration);
-			_isMappingConfigured = true;
+			lock (_lockObject)
+			{
+				if (_isMappingConfigured)
+				{
+					return;
+				}
+
+				_conventions = GetConventions();
+				ApplyReverseConventions(_reverseConfiguration);
+				ConfigureCustomMapping(_reverseConfiguration);
+				_isMappingConfigured = true;
+			}
 		}
 
 		/// <summary>

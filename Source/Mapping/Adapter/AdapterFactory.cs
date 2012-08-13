@@ -17,6 +17,7 @@ namespace Junior.Map.Adapter
 		where TSource : class
 		where TTarget : class
 	{
+		private static object _lockObject = new object();
 		private readonly Lazy<IAdapterFactory<TSource, TTarget>> _adapterFactory;
 		private readonly AdapterFactoryFlags _adapterFactoryFlags;
 		private readonly AdapterFactoryConfiguration<TSource, TTarget> _configuration;
@@ -185,8 +186,16 @@ namespace Junior.Map.Adapter
 				return;
 			}
 
-			ConfigureAdapter(_configuration);
-			_isMappingConfigured = true;
+			lock (_lockObject)
+			{
+				if (_isMappingConfigured)
+				{
+					return;
+				}
+
+				ConfigureAdapter(_configuration);
+				_isMappingConfigured = true;
+			}
 		}
 	}
 }

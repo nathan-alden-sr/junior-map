@@ -15,6 +15,7 @@ namespace Junior.Map.Mapper
 	/// <typeparam name="TTarget">A target type.</typeparam>
 	public abstract class Mapper<TSource, TTarget> : IMapper<TSource, TTarget>, IMapper, IMappingProvider
 	{
+		private static object _lockObject = new object();
 		private readonly MapperConfiguration<TSource, TTarget> _configuration;
 		private readonly MappingMethodGenerator _generator = new MappingMethodGenerator();
 		private readonly Lazy<Action<TSource, TTarget>> _mapMethodDelegate;
@@ -170,22 +171,19 @@ namespace Junior.Map.Mapper
 				return;
 			}
 
-			ConfigureMapper(_configuration);
-			_isMapperConfigured = true;
-		}
+			lock (_lockObject)
+			{
+				if (_isMapperConfigured)
+				{
+					return;
+				}
 
-		/// <summary>
-		/// Allows configuration of custom mappings at runtime through the specified mapper configuration.
-		/// </summary>
-		/// <param name="configuration">A mapper configuration.</param>
-		/// <exception cref="ArgumentNullException">Thrown when <paramref name="configuration"/> is null.</exception>
-		private void ConfigureMapper(MapperConfiguration<TSource, TTarget> configuration)
-		{
-			configuration.ThrowIfNull("configuration");
+				_conventions = GetConventions();
+				ApplyConventions(_configuration);
+				ConfigureCustomMapping(_configuration);
 
-			_conventions = GetConventions();
-			ApplyConventions(configuration);
-			ConfigureCustomMapping(configuration);
+				_isMapperConfigured = true;
+			}
 		}
 
 		/// <summary>
