@@ -45,7 +45,9 @@ namespace Junior.Map.Common.Conventions
 				TypeConverter targetConverter = TypeDescriptor.GetConverter(tempEligibleProperty.PropertyType);
 				TypeConverter sourceConverter = TypeDescriptor.GetConverter(sourcePropertyInfo.PropertyType);
 
+				// ReSharper disable ConditionIsAlwaysTrueOrFalse
 				if (targetConverter != null &&
+				    // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				    !tempEligibleProperty.PropertyType.IsAssignableFrom(sourcePropertyInfo.PropertyType) &&
 				    targetConverter.CanConvertFrom(sourcePropertyInfo.PropertyType))
 				{
@@ -53,7 +55,9 @@ namespace Junior.Map.Common.Conventions
 
 					configuration.Map(tempEligibleProperty.Name).From(source => targetConverter.ConvertFrom(@delegate(source)));
 				}
+					// ReSharper disable ConditionIsAlwaysTrueOrFalse
 				else if (sourceConverter != null &&
+				         // ReSharper restore ConditionIsAlwaysTrueOrFalse
 				         !tempEligibleProperty.PropertyType.IsAssignableFrom(sourcePropertyInfo.PropertyType) &&
 				         sourceConverter.CanConvertTo(tempEligibleProperty.PropertyType))
 				{

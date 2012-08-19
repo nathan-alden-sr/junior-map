@@ -17,7 +17,9 @@ namespace Junior.Map.Adapter
 		where TSource : class
 		where TTarget : class
 	{
-		private static object _lockObject = new object();
+		// ReSharper disable StaticFieldInGenericType
+		private static readonly object _lockObject = new object();
+		// ReSharper restore StaticFieldInGenericType
 		private readonly Lazy<IAdapterFactory<TSource, TTarget>> _adapterFactory;
 		private readonly AdapterFactoryFlags _adapterFactoryFlags;
 		private readonly AdapterFactoryConfiguration<TSource, TTarget> _configuration;
@@ -25,14 +27,6 @@ namespace Junior.Map.Adapter
 		private readonly AdapterConventionEligiblePropertyFinder _propertyFinder = new AdapterConventionEligiblePropertyFinder();
 		private IEnumerable<IMappingConvention> _conventions = Enumerable.Empty<IMappingConvention>();
 		private bool _isMappingConfigured;
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="AdapterFactory{TSource,TTarget}"/> class with default behaviors.
-		/// </summary>
-		protected AdapterFactory()
-			: this(null, null)
-		{
-		}
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AdapterFactory{TSource,TTarget}"/> class with default options.

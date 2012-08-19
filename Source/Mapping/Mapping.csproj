@@ -26,21 +26,21 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\BuildOutput\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\BuildOutput\Debug\Junior.Map.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Junior.Map.xml</DocumentationFile>
     <WarningsAsErrors>1591</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\BuildOutput\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\BuildOutput\Release\Junior.Map.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Junior.Map.xml</DocumentationFile>
     <WarningsAsErrors>1591</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
@@ -59,7 +59,6 @@
     <Compile Include="Adapter\AdapterFactoryGenerator.cs" />
     <Compile Include="Adapter\Conventions\NamesMatchAndCanBeAdaptedMappingConvention.cs" />
     <Compile Include="Adapter\Conventions\NameAndTypeMatchAdapterMappingConvention.cs" />
-    <Compile Include="Adapter\DefaultAdapterFactory.cs" />
     <Compile Include="Adapter\AdapterFactoryLocator.cs" />
     <Compile Include="Adapter\IAdapterFactory.cs" />
     <Compile Include="Adapter\AdapterFactoryConfiguration.cs" />
@@ -98,16 +97,20 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Junior.Common">
-      <HintPath>..\..\Binaries\JuniorCommon\Junior.Common.dll</HintPath>
+    <Reference Include="Junior.Common, Version=1.0.6.0, Culture=neutral, PublicKeyToken=998713eb9a0cce30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\JuniorCommon.1.0.6\lib\net40\Junior.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\JuniorMap.snk">
       <Link>JuniorMap.snk</Link>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

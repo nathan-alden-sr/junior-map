@@ -6,7 +6,7 @@ namespace Junior.Map.Common
 	/// Represents a way to configure a mapping to a <typeparamref name="TTarget"/>.
 	/// </summary>
 	/// <typeparamref name="TTarget">The target type.</typeparamref>
-	public interface IEnumerationValueMapper<TTarget>
+	public interface IEnumerationValueMapper<in TTarget>
 	{
 		/// <summary>
 		/// Provides a mapping that maps to the provided value.

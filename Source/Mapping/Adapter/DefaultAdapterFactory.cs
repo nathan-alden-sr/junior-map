@@ -1,3 +1,0 @@
-﻿namespace Junior.Map.Adapter
-{
-}

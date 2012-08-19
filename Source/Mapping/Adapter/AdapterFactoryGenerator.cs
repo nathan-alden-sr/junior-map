@@ -107,7 +107,7 @@ namespace Junior.Map.Adapter
 
 			List<string> errorMessages = typeof(TTargetInterface)
 				.GetProperties(BindingFlags.Public | BindingFlags.Instance)
-				.Where(arg => !memberMappings.Any(mapping => mapping.MemberName == arg.Name))
+				.Where(arg => memberMappings.All(mapping => mapping.MemberName != arg.Name))
 				.Select(arg => String.Format("Mapping for '{0}.{1}' from '{2}' not provided.", typeof(TTargetInterface).Name, arg.Name, typeof(TSource).Name))
 				.ToList();
 
@@ -183,7 +183,7 @@ namespace Junior.Map.Adapter
 
 			int argumentIndex = 2;
 
-			foreach (var fieldAndValueDelegate in fieldsAndValueDelegates)
+			foreach (FieldAndValueDelegate<TSource> fieldAndValueDelegate in fieldsAndValueDelegates)
 			{
 				generator.Emit(OpCodes.Ldarg_0);
 				generator.Emit(OpCodes.Ldarg, argumentIndex);

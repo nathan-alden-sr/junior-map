@@ -65,7 +65,7 @@ namespace Junior.Map.Mapper
 		{
 			int memberMappingIndex = 0;
 
-			foreach (var memberMapFunc in memberMappings)
+			foreach (MemberMapping<TSource> memberMapFunc in memberMappings)
 			{
 				PropertyInfo propertyInfo = targetType.GetProperty(memberMapFunc.MemberName, BindingFlags.Public | BindingFlags.Instance);
 				MethodInfo propertySetMethod = propertyInfo.GetSetMethod(false);

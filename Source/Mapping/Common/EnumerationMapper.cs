@@ -16,7 +16,9 @@ namespace Junior.Map.Common
 	/// <typeparam name="TTarget">The target enum type.</typeparam>
 	public abstract class EnumerationMapper<TSource, TTarget> : IMappingProvider
 	{
-		private static object _lockObject = new object();
+		// ReSharper disable StaticFieldInGenericType
+		private static readonly object _lockObject = new object();
+		// ReSharper restore StaticFieldInGenericType
 		private readonly EnumerationMapperConfiguration<TSource, TTarget> _configuration = new EnumerationMapperConfiguration<TSource, TTarget>();
 		private readonly bool _isNullableMap;
 		private readonly Type _sourceType;

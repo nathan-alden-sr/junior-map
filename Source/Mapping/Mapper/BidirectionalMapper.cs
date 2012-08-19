@@ -12,7 +12,9 @@ namespace Junior.Map.Mapper
 	/// </summary>
 	public abstract class BidirectionalMapper<T1, T2> : Mapper<T1, T2>
 	{
-		private static object _lockObject = new object();
+		// ReSharper disable StaticFieldInGenericType
+		private static readonly object _lockObject = new object();
+		// ReSharper restore StaticFieldInGenericType
 		private readonly MappingMethodGenerator _generator = new MappingMethodGenerator();
 		private readonly Lazy<Action<T2, T1>> _mapMethod;
 		private readonly MapperConventionEligiblePropertyFinder _propertyFinder = new MapperConventionEligiblePropertyFinder();
@@ -108,14 +110,6 @@ namespace Junior.Map.Mapper
 		/// <param name="configuration">A mapper configuration.</param>
 		protected virtual void ConfigureCustomMapping(MapperConfiguration<T2, T1> configuration)
 		{
-		}
-
-		private void ApplyConventions(MapperConfiguration<T1, T2> configuration)
-		{
-			foreach (IMapperConvention convention in _conventions)
-			{
-				convention.Apply(_propertyFinder, configuration);
-			}
 		}
 
 		private void ApplyReverseConventions(MapperConfiguration<T2, T1> configuration)

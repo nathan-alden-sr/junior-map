@@ -100,20 +100,20 @@ namespace Junior.Map.UnitTests.Common
 			public void Should_not_throw_if_target_has_all_elements_in_source()
 			{
 				Assert.DoesNotThrow(() =>
-				                    	{
-				                    		var mapper = new ThreeValuesEnumerationMapper();
-				                    		mapper.Validate();
-				                    	});
+					{
+						var mapper = new ThreeValuesEnumerationMapper();
+						mapper.Validate();
+					});
 			}
 
 			[Test]
 			public void Should_not_throw_if_target_has_less_elements_than_source_but_custom_mapping_covers_it()
 			{
 				Assert.DoesNotThrow(() =>
-				                    	{
-				                    		var mapper = new ThreeToFourCustomValuesEnumerationMapper();
-				                    		mapper.Validate();
-				                    	});
+					{
+						var mapper = new ThreeToFourCustomValuesEnumerationMapper();
+						mapper.Validate();
+					});
 			}
 
 			private class AlmostSimilarEnumEnumerationMapper : EnumerationMapper<AlmostSimilarEnum, FooEnum>

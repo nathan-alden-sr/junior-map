@@ -21,11 +21,11 @@ namespace Junior.Map.Mapper
 		{
 			return typeof(TTarget).GetAllPublicInstanceProperties()
 				.Where(arg =>
-				       	{
-				       		MethodInfo setMethod = arg.GetSetMethod();
+					{
+						MethodInfo setMethod = arg.GetSetMethod();
 
-				       		return setMethod != null && !setMethod.IsStatic;
-				       	});
+						return setMethod != null && !setMethod.IsStatic;
+					});
 		}
 	}
 }

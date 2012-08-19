@@ -145,20 +145,20 @@ namespace Junior.Map.UnitTests.Adapter
 				bool factorDelegateCalled = false;
 
 				fooConfiguration.Map(view => view.Name).From(foo =>
-				                                             	{
-				                                             		nameDelegateCalled = true;
-				                                             		return foo.Name;
-				                                             	});
+					{
+						nameDelegateCalled = true;
+						return foo.Name;
+					});
 				fooConfiguration.Map(view => view.Id).From(foo =>
-				                                           	{
-				                                           		idDelegateCalled = true;
-				                                           		return foo.Id;
-				                                           	});
+					{
+						idDelegateCalled = true;
+						return foo.Id;
+					});
 				fooConfiguration.Map(view => view.Factor).From(foo =>
-				                                               	{
-				                                               		factorDelegateCalled = true;
-				                                               		return foo.Factor;
-				                                               	});
+					{
+						factorDelegateCalled = true;
+						return foo.Factor;
+					});
 
 				var foo1 = new Foo("test", Guid.NewGuid(), 1);
 				IAdapterFactory<Foo, IFooView> systemUnderTest = AdapterFactoryGenerator.Instance.Generate<Foo, IFooView>(fooConfiguration.Mappings);
@@ -196,29 +196,35 @@ namespace Junior.Map.UnitTests.Adapter
 
 				var foo1 = new Foo("test foo", Guid.NewGuid(), 1);
 				const int numberOfInstances = 2000000;
-				var mappingServiceMs = (long)StopwatchContext.Timed(() =>
-				                                                    	{
-				                                                    		for (int i = 0; i < numberOfInstances; i++)
-				                                                    		{
-				                                                    			systemUnderTest.Create(foo1);
-				                                                    		}
-				                                                    	}).TotalMilliseconds;
-				var hardCodedMs = (long)StopwatchContext.Timed(() =>
-				                                               	{
-				                                               		for (int i = 0; i < numberOfInstances; i++)
-				                                               		{
-				                                               			new HardCodedFooAdapter(foo1);
-				                                               		}
-				                                               	}).TotalMilliseconds;
+				var mappingServiceMs = (long)StopwatchContext.Timed(
+					() =>
+						{
+							for (int i = 0; i < numberOfInstances; i++)
+							{
+								systemUnderTest.Create(foo1);
+							}
+						}).TotalMilliseconds;
+				// ReSharper disable ImplicitlyCapturedClosure
+				var hardCodedMs = (long)StopwatchContext.Timed(
+					() =>
+					// ReSharper restore ImplicitlyCapturedClosure
+						{
+							for (int i = 0; i < numberOfInstances; i++)
+							{
+								// ReSharper disable ObjectCreationAsStatement
+								new HardCodedFooAdapter(foo1);
+								// ReSharper restore ObjectCreationAsStatement
+							}
+						}).TotalMilliseconds;
 				double mappingServicePerInstanceSeconds = (mappingServiceMs / 1000.0) / numberOfInstances;
 				double hardCodedPerInstanceSeconds = (hardCodedMs / 1000.0) / numberOfInstances;
 				double performanceDifference = mappingServiceMs / (double)hardCodedMs;
 
-				Console.WriteLine(String.Format("Generated Adapter:  {0:0.0000000000000}s per instance, {1:0.000}s total, {2} instances.", mappingServicePerInstanceSeconds, mappingServiceMs / 1000.0, numberOfInstances));
-				Console.WriteLine(String.Format("Hard-coded Adapter: {0:0.0000000000000}s per instance, {1:0.000}s total, {2} instances.", hardCodedPerInstanceSeconds, hardCodedMs / 1000.0, numberOfInstances));
+				Console.WriteLine("Generated Adapter:  {0:0.0000000000000}s per instance, {1:0.000}s total, {2} instances.", mappingServicePerInstanceSeconds, mappingServiceMs / 1000.0, numberOfInstances);
+				Console.WriteLine("Hard-coded Adapter: {0:0.0000000000000}s per instance, {1:0.000}s total, {2} instances.", hardCodedPerInstanceSeconds, hardCodedMs / 1000.0, numberOfInstances);
 				Console.WriteLine();
-				Console.WriteLine(String.Format("Relative time for generated version: {0:00.00}x slower", performanceDifference));
-				Console.WriteLine(String.Format("Cost per 100 instances as percentage of 50ms page load: {0:000.000000}%", ((mappingServicePerInstanceSeconds * 100) / 0.050) * 100.0));
+				Console.WriteLine("Relative time for generated version: {0:00.00}x slower", performanceDifference);
+				Console.WriteLine("Cost per 100 instances as percentage of 50ms page load: {0:000.000000}%", ((mappingServicePerInstanceSeconds * 100) / 0.050) * 100.0);
 
 				Assert.That(performanceDifference, Is.LessThan(30.0));
 			}
@@ -269,20 +275,20 @@ namespace Junior.Map.UnitTests.Adapter
 				bool factorDelegateCalled = false;
 
 				fooConfiguration.Map(view => view.Name).From(foo =>
-				                                             	{
-				                                             		nameDelegateCalled = true;
-				                                             		return foo.Name;
-				                                             	});
+					{
+						nameDelegateCalled = true;
+						return foo.Name;
+					});
 				fooConfiguration.Map(view => view.Id).From(foo =>
-				                                           	{
-				                                           		idDelegateCalled = true;
-				                                           		return foo.Id;
-				                                           	});
+					{
+						idDelegateCalled = true;
+						return foo.Id;
+					});
 				fooConfiguration.Map(view => view.Factor).From(foo =>
-				                                               	{
-				                                               		factorDelegateCalled = true;
-				                                               		return foo.Factor;
-				                                               	});
+					{
+						factorDelegateCalled = true;
+						return foo.Factor;
+					});
 
 				var foo1 = new Foo("test", Guid.NewGuid(), 1);
 				IAdapterFactory<Foo, IFooView> systemUnderTest = AdapterFactoryGenerator.Instance.Generate<Foo, IFooView>(fooConfiguration.Mappings);

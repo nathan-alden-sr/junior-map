@@ -167,24 +167,24 @@ namespace Junior.Map.UnitTests.Mapper
 			public void Must_map_the_nested_type_too_by_straight_assignment_when_settable_and_types_are_the_same()
 			{
 				var person = new Person
-				             	{
-				             		Name = "Joe",
-				             		Employer = new Employer
-				             		           	{
-				             		           		Name = "Microsoft",
-				             		           		Address = new Address
-				             		           		          	{
-				             		           		          		Street = "1 Microsoft Way",
-				             		           		          		City = "Redmond"
-				             		           		          	}
-				             		           	}
-				             	};
+					{
+						Name = "Joe",
+						Employer = new Employer
+							{
+								Name = "Microsoft",
+								Address = new Address
+									{
+										Street = "1 Microsoft Way",
+										City = "Redmond"
+									}
+							}
+					};
 
 				person.Address = new PersonAddress(person)
-				                 	{
-				                 		Street = "123 Main",
-				                 		City = "Dallas"
-				                 	};
+					{
+						Street = "123 Main",
+						City = "Dallas"
+					};
 
 				var systemUnderTest = new DefaultMapper<Person, Person>();
 
@@ -304,9 +304,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceFoo.B = "SourceB";
 				sourceFoo.C = 1;
 				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 
 				targetBar.likeA = "WrongA";
 				targetBar.likeB = "WrongB";
@@ -340,9 +340,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceBar.likeB = "BarB";
 				sourceBar.likeC = 0;
 				sourceBar.likeRefType = new SimpleRefType
-				                        	{
-				                        		Id = Guid.NewGuid()
-				                        	};
+					{
+						Id = Guid.NewGuid()
+					};
 
 				var systemUnderTest = new FooBarMapper();
 
@@ -367,9 +367,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceFoo.B = "SourceB";
 				sourceFoo.C = 1;
 				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 
 				targetBar.likeA = "WrongA";
 				targetBar.likeB = "WrongB";
@@ -378,12 +378,12 @@ namespace Junior.Map.UnitTests.Mapper
 
 				var systemUnderTest = new FooBarMapper();
 				var milliseconds = (long)StopwatchContext.Timed(() =>
-				                                                	{
-				                                                		for (int i = 0; i < 10000000; i++)
-				                                                		{
-				                                                			systemUnderTest.Map(sourceFoo, targetBar);
-				                                                		}
-				                                                	}).TotalMilliseconds;
+					{
+						for (int i = 0; i < 10000000; i++)
+						{
+							systemUnderTest.Map(sourceFoo, targetBar);
+						}
+					}).TotalMilliseconds;
 
 				Console.WriteLine(milliseconds);
 			}
@@ -601,9 +601,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceFoo.B = "SourceB";
 				sourceFoo.C = 1;
 				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 				sourceFoo.SomeString = "FooSomeString";
 
 				targetBar.likeA = "WrongA";
@@ -639,9 +639,9 @@ namespace Junior.Map.UnitTests.Mapper
 				var targetBar = new Bar();
 
 				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 				targetBar.likeRefType = null;
 
 				var systemUnderTest = new FooBarMapperWithInjectedRefTypeMapper(simpleRefTypeMapper);
@@ -683,9 +683,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceFoo.B = "SourceB";
 				sourceFoo.C = 1;
 				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 
 				targetBar.likeA = "WrongA";
 				targetBar.likeB = "WrongB";
@@ -694,12 +694,12 @@ namespace Junior.Map.UnitTests.Mapper
 
 				var systemUnderTest = new FooBarMapper();
 				var milliseconds = (long)StopwatchContext.Timed(() =>
-				                                                	{
-				                                                		for (int i = 0; i < 10000000; i++)
-				                                                		{
-				                                                			systemUnderTest.Map(sourceFoo, targetBar);
-				                                                		}
-				                                                	}).TotalMilliseconds;
+					{
+						for (int i = 0; i < 10000000; i++)
+						{
+							systemUnderTest.Map(sourceFoo, targetBar);
+						}
+					}).TotalMilliseconds;
 
 				Console.WriteLine(milliseconds);
 			}
@@ -780,9 +780,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceFoo.B = "SourceB";
 				sourceFoo.C = 1;
 				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 
 				targetBar.A = "WrongA";
 				targetBar.B = "WrongB";
@@ -816,9 +816,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceBar.B = "BarB";
 				sourceBar.C = 0;
 				sourceBar.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 
 				var systemUnderTest = new DefaultBidirectionalMapper<Foo, Bar>();
 
@@ -1002,9 +1002,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceFoo.Color = Color.Red;
 				sourceFoo.NullableColor = null;
 				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 
 				targetBar.A = "WrongA";
 				targetBar.B = "WrongB";
@@ -1038,9 +1038,9 @@ namespace Junior.Map.UnitTests.Mapper
 				sourceFoo.B = "SourceB";
 				sourceFoo.C = 1;
 				sourceFoo.RefType = new SimpleRefType
-				                    	{
-				                    		Id = Guid.NewGuid()
-				                    	};
+					{
+						Id = Guid.NewGuid()
+					};
 
 				targetBar.A = "WrongA";
 				targetBar.B = "WrongB";
@@ -1050,14 +1050,14 @@ namespace Junior.Map.UnitTests.Mapper
 				const int numberOfMappings = 10000000;
 				var systemUnderTest = new DefaultMapper<Foo, Bar>();
 				var milliseconds = (long)StopwatchContext.Timed(() =>
-				                                                	{
-				                                                		for (int i = 0; i < numberOfMappings; i++)
-				                                                		{
-				                                                			systemUnderTest.Map(sourceFoo, targetBar);
-				                                                		}
-				                                                	}).TotalMilliseconds;
+					{
+						for (int i = 0; i < numberOfMappings; i++)
+						{
+							systemUnderTest.Map(sourceFoo, targetBar);
+						}
+					}).TotalMilliseconds;
 
-				Console.WriteLine(String.Format("{0:0.000000000000000}", milliseconds / numberOfMappings));
+				Console.WriteLine("{0:0.000000000000000}", milliseconds / numberOfMappings);
 			}
 
 			[Test]

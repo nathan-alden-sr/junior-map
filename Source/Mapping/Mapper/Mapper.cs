@@ -15,7 +15,9 @@ namespace Junior.Map.Mapper
 	/// <typeparam name="TTarget">A target type.</typeparam>
 	public abstract class Mapper<TSource, TTarget> : IMapper<TSource, TTarget>, IMapper, IMappingProvider
 	{
-		private static object _lockObject = new object();
+		// ReSharper disable StaticFieldInGenericType
+		private static readonly object _lockObject = new object();
+		// ReSharper restore StaticFieldInGenericType
 		private readonly MapperConfiguration<TSource, TTarget> _configuration;
 		private readonly MappingMethodGenerator _generator = new MappingMethodGenerator();
 		private readonly Lazy<Action<TSource, TTarget>> _mapMethodDelegate;

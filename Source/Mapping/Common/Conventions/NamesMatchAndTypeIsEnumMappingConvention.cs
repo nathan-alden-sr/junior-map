@@ -88,7 +88,9 @@ namespace Junior.Map.Common.Conventions
 				catch
 				{
 					// Eat the exception because the determination of whether the enumeration is mappable is delegated to EnumerationMapper.
+					// ReSharper disable RedundantJumpStatement
 					continue;
+					// ReSharper restore RedundantJumpStatement
 				}
 			}
 		}
