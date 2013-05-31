@@ -32,6 +32,67 @@ namespace Junior.Map.UnitTests.Mapper
 		}
 
 		[TestFixture]
+		public class When_ignoring_members_already_mapped_by_convention
+		{
+			#region Test types
+
+			public class Source
+			{
+				public int? Foo
+				{
+					get;
+					set;
+				}
+
+				public string Bar
+				{
+					get;
+					set;
+				}
+			}
+
+			public class Target
+			{
+				public int? Foo
+				{
+					get;
+					set;
+				}
+
+				public string Bar
+				{
+					get;
+					set;
+				}
+			}
+
+			private class Mapper : Mapper<Source, Target>
+			{
+				protected override void ConfigureCustomMapping(MapperConfiguration<Source, Target> configuration)
+				{
+					configuration.Map(s => s.Foo).ByIgnoring();
+				}
+			}
+
+			#endregion
+
+			[Test]
+			public void Must_not_map_ignored_members()
+			{
+				var source = new Source
+					{
+						Foo = 3,
+						Bar = "Baz"
+					};
+
+				var target = new Mapper().Map<Target>(source);
+
+				Assert.That(target.Foo, Is.Null);
+				Assert.That(target.Bar, Is.EqualTo("Baz"));
+			}
+		}
+
+		[TestFixture]
 		public class When_mapping_a_type_with_nested_types_using_default_mapper
 		{
 			#region Test types

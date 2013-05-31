@@ -46,14 +46,22 @@ namespace Junior.Map.Mapper
 				.Where(arg => arg.MapDelegate != null)
 				.Select(arg => arg.MapDelegate)
 				.ToArray();
+			// Only map members that have no corresponding action, or that have a corresponding action with a non-null delegate
+			// This query ignores mappings that have a corresponding action with a null delegate
+			MemberMapping<TSource>[] mappings =
+				(from m in configuration.Mappings
+				 join a in configuration.Actions on m.MemberName equals a.MemberName into ma
+				 from a in ma.DefaultIfEmpty()
+				 where a == null || a.MapDelegate != null
+				 select m).ToArray();
 
-			EmitMemberMappings(configuration.Mappings, targetType, ilGenerator);
+			EmitMemberMappings(mappings, targetType, ilGenerator);
 			EmitMemberMapActions(mapActions, ilGenerator);
 
 			ilGenerator.Emit(OpCodes.Ret);
 
 			var methodDelegate = (MappingMethodDelegate<TSource, TTarget>)mappingMethod.CreateDelegate(typeof(MappingMethodDelegate<TSource, TTarget>));
-			Func<TSource, object>[] mapFuncs = configuration.Mappings
+			Func<TSource, object>[] mapFuncs = mappings
 				.Where(arg => arg.ValueDelegate != null)
 				.Select(arg => arg.ValueDelegate)
 				.ToArray();
