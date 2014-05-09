@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
-		<id>JuniorMap</id>
+		<id>Junior.Map</id>
 		<version>$version$</version>
-		<title>JuniorMap</title>
+		<title>Junior.Map</title>
 		<authors>Carlos Ribas,Nathan Alden Sr.</authors>
 		<description>JuniorMap is a framework for mapping between two types and adapting one type to another.</description>
 		<releaseNotes></releaseNotes>
 		<projectUrl>https://github.com/NathanAlden/JuniorMap</projectUrl>
-		<iconUrl>https://docs.google.com/uc?export=download&amp;id=0B8a4O6RATfaXQ2YxekpxbXRfUjQ</iconUrl>
 		<dependencies>
 			<group>
-				<dependency id="JuniorCommon" version="3.0.1"/>
+				<dependency id="Junior.Common.Net40" version="4.0.0"/>
 			</group>
 		</dependencies>
 		<references>
@@ -22,6 +21,6 @@
 	<files>
 		<file src="NuGet Staging\LICENSE"/>
 		<file src="NuGet Staging\README.md"/>
-		<file src="NuGet Staging\bin\Junior.Map.*" target="lib\net45"/>
+		<file src="NuGet Staging\bin\Junior.Map.*" target="lib\net40"/>
 	</files>
 </package>

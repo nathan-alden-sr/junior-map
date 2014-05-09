@@ -19,9 +19,10 @@
 	<property name="NUnitResultsDirectory" value="${path::combine(BuildDirectory, 'NUnit Results')}"/>
 
 	<!-- Paths -->
-	<property name="NUnitConsolePath" value="${path::combine(BuildDirectory, 'NUnit-2.6.2\bin\nunit-console.exe')}"/>
-	<property name="NuGetPath" value="${path::combine(BuildDirectory, 'NuGet-2.2.1\NuGet.exe')}"/>
+	<property name="NUnitConsolePath" value="${path::combine(BuildDirectory, 'NUnit-2.6.3\bin\nunit-console.exe')}"/>
+	<property name="NuGetPath" value="${path::combine(BuildDirectory, 'NuGet-2.8.1\NuGet.exe')}"/>
 	<property name="SolutionPath" value="${path::combine(SourceDirectory, project::get-name() + '.sln')}"/>
+	<property name="MSBuildPath" value="C:\Program Files (x86)\MSBuild\12.0\Bin\MSBuild.exe"/>
 
 	<!-- Build -->
 	<target name="Build">
@@ -39,7 +40,7 @@
 	<!-- Compile -->
 	<target name="Compile">
 		<exec
-			program="${framework::get-framework-directory(framework::get-target-framework())}\msbuild.exe"
+			program="${MSBuildPath}"
 			workingdir="."
 			verbose="true">
 			<arg value="${SolutionPath}"/>
