@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Common;
 using Junior.Map.Mapper.Conventions;
 
@@ -66,11 +66,11 @@ namespace Junior.Map.Mapper
 			_configuration = configuration;
 			_mapMethodDelegate = new Lazy<Action<TSource, TTarget>>(
 				() =>
-					{
-						ConfigureMapper();
+				{
+					ConfigureMapper();
 
-						return _generator.GenerateMappingMethod(_configuration);
-					});
+					return _generator.GenerateMappingMethod(_configuration);
+				});
 		}
 
 		void IMapper.Map(object source, object target)

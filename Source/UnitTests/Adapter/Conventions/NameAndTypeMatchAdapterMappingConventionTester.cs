@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Adapter.Conventions;
 using Junior.Map.Mapper;
 

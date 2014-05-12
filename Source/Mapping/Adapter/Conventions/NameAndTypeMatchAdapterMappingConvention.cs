@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Common;
 
 namespace Junior.Map.Adapter.Conventions

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Common;
 
 namespace Junior.Map.Mapper
@@ -33,12 +33,12 @@ namespace Junior.Map.Mapper
 			Type sourceType = typeof(TSource);
 			Type targetType = typeof(TTarget);
 			Type[] methodArguments =
-				{
-					funcArgumentType,
-					actionArgumentType,
-					sourceType,
-					targetType
-				};
+			{
+				funcArgumentType,
+				actionArgumentType,
+				sourceType,
+				targetType
+			};
 			string methodName = String.Format("MappingMethod_{0}_to_{1}_{2:N}", sourceType.FullName, targetType.FullName, Guid.NewGuid());
 			var mappingMethod = new DynamicMethod(methodName, typeof(void), methodArguments, targetType.Module);
 			ILGenerator ilGenerator = mappingMethod.GetILGenerator();
@@ -50,10 +50,10 @@ namespace Junior.Map.Mapper
 			// This query ignores mappings that have a corresponding action with a null delegate
 			MemberMapping<TSource>[] mappings =
 				(from m in configuration.Mappings
-				 join a in configuration.Actions on m.MemberName equals a.MemberName into ma
-				 from a in ma.DefaultIfEmpty()
-				 where a == null || a.MapDelegate != null
-				 select m).ToArray();
+					join a in configuration.Actions on m.MemberName equals a.MemberName into ma
+					from a in ma.DefaultIfEmpty()
+					where a == null || a.MapDelegate != null
+					select m).ToArray();
 
 			EmitMemberMappings(mappings, targetType, ilGenerator);
 			EmitMemberMapActions(mapActions, ilGenerator);

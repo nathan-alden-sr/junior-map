@@ -99,11 +99,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Junior.Common.Net35">
-      <HintPath>..\packages\Junior.Common.Net35.4.0.0\lib\net35\Junior.Common.Net35.dll</HintPath>
+    <Reference Include="Junior.Common.Net35, Version=5.0.0.0, Culture=neutral, PublicKeyToken=998713eb9a0cce30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Junior.Common.Net35.5.0.3\lib\net35\Junior.Common.Net35.dll</HintPath>
     </Reference>
-    <Reference Include="Junior.Common.Net40">
-      <HintPath>..\packages\Junior.Common.Net40.4.0.0\lib\net35\Junior.Common.Net40.dll</HintPath>
+    <Reference Include="Junior.Common.Net40, Version=5.0.0.0, Culture=neutral, PublicKeyToken=998713eb9a0cce30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Junior.Common.Net40.5.0.1\lib\net35\Junior.Common.Net40.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />

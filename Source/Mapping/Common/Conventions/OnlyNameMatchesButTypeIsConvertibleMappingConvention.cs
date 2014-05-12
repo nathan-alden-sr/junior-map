@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 
-using Junior.Common;
+using Junior.Common.Net35;
 
 namespace Junior.Map.Common.Conventions
 {

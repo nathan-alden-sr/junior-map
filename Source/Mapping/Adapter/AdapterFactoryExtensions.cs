@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Junior.Common;
+using Junior.Common.Net35;
 
 namespace Junior.Map.Adapter
 {

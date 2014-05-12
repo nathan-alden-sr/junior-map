@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Reflection.Emit;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Common;
 
 namespace Junior.Map.Adapter
@@ -20,13 +20,13 @@ namespace Junior.Map.Adapter
 		/// </summary>
 		public static readonly AdapterFactoryGenerator Instance = new AdapterFactoryGenerator();
 
-		private readonly AssemblyBuilder _assembly;
 		private readonly ModuleBuilder _moduleBuilder;
 
 		private AdapterFactoryGenerator()
 		{
-			_assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("AdapterClassGeneratorDynamicAssembly"), AssemblyBuilderAccess.Run);
-			_moduleBuilder = _assembly.DefineDynamicModule("GeneratedAdapterClasses");
+			AssemblyBuilder assembly = AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("AdapterClassGeneratorDynamicAssembly"), AssemblyBuilderAccess.Run);
+
+			_moduleBuilder = assembly.DefineDynamicModule("GeneratedAdapterClasses");
 		}
 
 		/// <summary>
@@ -83,14 +83,14 @@ namespace Junior.Map.Adapter
 			// Return the factory with a delegate that calls the constructor expression more efficiently
 			return new AdapterFactory<TSource, TTargetInterface>(
 				source =>
-					{
-						var arguments = new object[constructorArgumentCount];
+				{
+					var arguments = new object[constructorArgumentCount];
 
-						arguments[0] = source;
-						constructorDelegateArgumentsAsObjectArray.CopyTo(arguments, 1);
+					arguments[0] = source;
+					constructorDelegateArgumentsAsObjectArray.CopyTo(arguments, 1);
 
-						return adapterConstructorDelegate(arguments);
-					});
+					return adapterConstructorDelegate(arguments);
+				});
 		}
 
 		/// <summary>

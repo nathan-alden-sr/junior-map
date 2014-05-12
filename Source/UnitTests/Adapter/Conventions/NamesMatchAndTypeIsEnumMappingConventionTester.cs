@@ -1,4 +1,4 @@
-﻿using Junior.Common;
+﻿using Junior.Common.Net35;
 using Junior.Map.Common.Conventions;
 using Junior.Map.Mapper;
 

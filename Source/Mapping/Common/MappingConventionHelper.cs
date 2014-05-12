@@ -2,7 +2,7 @@ using System;
 using System.Linq.Expressions;
 using System.Reflection;
 
-using Junior.Common;
+using Junior.Common.Net35;
 
 namespace Junior.Map.Common
 {

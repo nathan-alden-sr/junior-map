@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Adapter;
 
 using NUnit.Framework;
@@ -145,20 +145,20 @@ namespace Junior.Map.UnitTests.Adapter
 				bool factorDelegateCalled = false;
 
 				fooConfiguration.Map(view => view.Name).From(foo =>
-					{
-						nameDelegateCalled = true;
-						return foo.Name;
-					});
+				{
+					nameDelegateCalled = true;
+					return foo.Name;
+				});
 				fooConfiguration.Map(view => view.Id).From(foo =>
-					{
-						idDelegateCalled = true;
-						return foo.Id;
-					});
+				{
+					idDelegateCalled = true;
+					return foo.Id;
+				});
 				fooConfiguration.Map(view => view.Factor).From(foo =>
-					{
-						factorDelegateCalled = true;
-						return foo.Factor;
-					});
+				{
+					factorDelegateCalled = true;
+					return foo.Factor;
+				});
 
 				var foo1 = new Foo("test", Guid.NewGuid(), 1);
 				IAdapterFactory<Foo, IFooView> systemUnderTest = AdapterFactoryGenerator.Instance.Generate<Foo, IFooView>(fooConfiguration.Mappings);
@@ -198,24 +198,24 @@ namespace Junior.Map.UnitTests.Adapter
 				const int numberOfInstances = 2000000;
 				var mappingServiceMs = (long)StopwatchContext.Timed(
 					() =>
+					{
+						for (int i = 0; i < numberOfInstances; i++)
 						{
-							for (int i = 0; i < numberOfInstances; i++)
-							{
-								systemUnderTest.Create(foo1);
-							}
-						}).TotalMilliseconds;
+							systemUnderTest.Create(foo1);
+						}
+					}).TotalMilliseconds;
 				// ReSharper disable ImplicitlyCapturedClosure
 				var hardCodedMs = (long)StopwatchContext.Timed(
 					() =>
-					// ReSharper restore ImplicitlyCapturedClosure
+						// ReSharper restore ImplicitlyCapturedClosure
+					{
+						for (int i = 0; i < numberOfInstances; i++)
 						{
-							for (int i = 0; i < numberOfInstances; i++)
-							{
-								// ReSharper disable ObjectCreationAsStatement
-								new HardCodedFooAdapter(foo1);
-								// ReSharper restore ObjectCreationAsStatement
-							}
-						}).TotalMilliseconds;
+							// ReSharper disable ObjectCreationAsStatement
+							new HardCodedFooAdapter(foo1);
+							// ReSharper restore ObjectCreationAsStatement
+						}
+					}).TotalMilliseconds;
 				double mappingServicePerInstanceSeconds = (mappingServiceMs / 1000.0) / numberOfInstances;
 				double hardCodedPerInstanceSeconds = (hardCodedMs / 1000.0) / numberOfInstances;
 				double performanceDifference = mappingServiceMs / (double)hardCodedMs;
@@ -275,20 +275,20 @@ namespace Junior.Map.UnitTests.Adapter
 				bool factorDelegateCalled = false;
 
 				fooConfiguration.Map(view => view.Name).From(foo =>
-					{
-						nameDelegateCalled = true;
-						return foo.Name;
-					});
+				{
+					nameDelegateCalled = true;
+					return foo.Name;
+				});
 				fooConfiguration.Map(view => view.Id).From(foo =>
-					{
-						idDelegateCalled = true;
-						return foo.Id;
-					});
+				{
+					idDelegateCalled = true;
+					return foo.Id;
+				});
 				fooConfiguration.Map(view => view.Factor).From(foo =>
-					{
-						factorDelegateCalled = true;
-						return foo.Factor;
-					});
+				{
+					factorDelegateCalled = true;
+					return foo.Factor;
+				});
 
 				var foo1 = new Foo("test", Guid.NewGuid(), 1);
 				IAdapterFactory<Foo, IFooView> systemUnderTest = AdapterFactoryGenerator.Instance.Generate<Foo, IFooView>(fooConfiguration.Mappings);

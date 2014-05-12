@@ -1,6 +1,6 @@
 using System;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Adapter;
 
 using NUnit.Framework;
@@ -117,16 +117,16 @@ namespace Junior.Map.UnitTests.Adapter
 			{
 				var systemUnderTest = new DefaultAdapterFactory<Foo, IBar>();
 				var sourceFoo = new Foo
-					{
-						A = "SourceA",
-						B = "SourceB",
-						C = 1,
-						RefType = new SimpleRefType
-							{
-								Id = Guid.NewGuid()
-							},
-						Letter = FooLetter.B
-					};
+				                {
+					                A = "SourceA",
+					                B = "SourceB",
+					                C = 1,
+					                RefType = new SimpleRefType
+					                          {
+						                          Id = Guid.NewGuid()
+					                          },
+					                Letter = FooLetter.B
+				                };
 				IBar bar = systemUnderTest.Create(sourceFoo);
 
 				Assert.That(bar.A, Is.EqualTo(sourceFoo.A));
@@ -143,30 +143,30 @@ namespace Junior.Map.UnitTests.Adapter
 			public void Must_perform_acceptably()
 			{
 				var sourceFoo = new Foo
-					{
-						A = "SourceA",
-						B = "SourceB",
-						C = 1,
-						RefType = new SimpleRefType
-							{
-								Id = Guid.NewGuid()
-							}
-					};
+				                {
+					                A = "SourceA",
+					                B = "SourceB",
+					                C = 1,
+					                RefType = new SimpleRefType
+					                          {
+						                          Id = Guid.NewGuid()
+					                          }
+				                };
 				const int numberOfMappings = 10000000;
 				var systemUnderTest = new DefaultAdapterFactory<Foo, IBar>();
 				var milliseconds = (long)StopwatchContext.Timed(() =>
+				{
+					for (int i = 0; i < numberOfMappings; i++)
 					{
-						for (int i = 0; i < numberOfMappings; i++)
-						{
-							IBar bar = systemUnderTest.Create(sourceFoo);
-							// ReSharper disable UnusedVariable
-							string a = bar.A;
-							string b = bar.B;
-							int c = bar.C;
-							SimpleRefType refType = bar.RefType;
-							// ReSharper restore UnusedVariable
-						}
-					}).TotalMilliseconds;
+						IBar bar = systemUnderTest.Create(sourceFoo);
+						// ReSharper disable UnusedVariable
+						string a = bar.A;
+						string b = bar.B;
+						int c = bar.C;
+						SimpleRefType refType = bar.RefType;
+						// ReSharper restore UnusedVariable
+					}
+				}).TotalMilliseconds;
 
 				Console.WriteLine("{0:0.000000000000000}", milliseconds / numberOfMappings);
 			}
@@ -255,16 +255,16 @@ namespace Junior.Map.UnitTests.Adapter
 			public void Must_assign_all_configured_properties_and_run_custom_actions()
 			{
 				var sourceFoo = new Foo
-					{
-						A = "SourceA",
-						B = "SourceB",
-						C = 1,
-						RefType = new SimpleRefType
-							{
-								Id = Guid.NewGuid()
-							},
-						SomeString = "FooSomeString"
-					};
+				                {
+					                A = "SourceA",
+					                B = "SourceB",
+					                C = 1,
+					                RefType = new SimpleRefType
+					                          {
+						                          Id = Guid.NewGuid()
+					                          },
+					                SomeString = "FooSomeString"
+				                };
 				var systemUnderTest = new FooBarAdapterFactory();
 				IBar bar = systemUnderTest.Create(sourceFoo);
 
@@ -370,18 +370,18 @@ namespace Junior.Map.UnitTests.Adapter
 			public void Must_attempt_to_adapt_nested_types()
 			{
 				var person = new Person
-					{
-						Name = "Joe",
-						Employer = new Employer
-							{
-								Name = "Microsoft",
-								Address = new Address
-									{
-										Street = "1 Microsoft Way",
-										City = "Redmond"
-									}
-							}
-					};
+				             {
+					             Name = "Joe",
+					             Employer = new Employer
+					                        {
+						                        Name = "Microsoft",
+						                        Address = new Address
+						                                  {
+							                                  Street = "1 Microsoft Way",
+							                                  City = "Redmond"
+						                                  }
+					                        }
+				             };
 				var systemUnderTest = new DefaultAdapterFactory<Person, IPerson>();
 
 				systemUnderTest.Validate();

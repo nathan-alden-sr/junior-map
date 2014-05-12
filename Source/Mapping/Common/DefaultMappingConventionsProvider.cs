@@ -11,10 +11,10 @@ namespace Junior.Map.Common
 	{
 		private static readonly IEnumerable<IMappingConvention> _defaultConventions =
 			new IMappingConvention[]
-				{
-					new OnlyNameMatchesButTypeIsConvertibleMappingConvention(),
-					new NamesMatchAndTypeIsEnumMappingConvention()
-				};
+			{
+				new OnlyNameMatchesButTypeIsConvertibleMappingConvention(),
+				new NamesMatchAndTypeIsEnumMappingConvention()
+			};
 
 		/// <summary>
 		/// Gets default conventions used by convention-based mappers and adapters.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Adapter.Conventions;
 using Junior.Map.Common;
 
@@ -56,10 +56,10 @@ namespace Junior.Map.Adapter
 			_adapterFactoryFlags = adapterFactoryFlags;
 			_adapterFactory = new Lazy<IAdapterFactory<TSource, TTarget>>(
 				() =>
-					{
-						ConfigureMapping();
-						return AdapterFactoryGenerator.Instance.Generate<TSource, TTarget>(_configuration.Mappings);
-					});
+				{
+					ConfigureMapping();
+					return AdapterFactoryGenerator.Instance.Generate<TSource, TTarget>(_configuration.Mappings);
+				});
 		}
 
 		/// <summary>
@@ -77,7 +77,7 @@ namespace Junior.Map.Adapter
 		/// </summary>
 		/// <param name="source">An instance of <typeparamref name="TSource"/>.</param>
 		/// <returns>an instance of <typeparamref name="TTarget"/> that is created at runtime.</returns>
-		/// <exception cref="ArgumentNullException">Thrown when source is null.</exception>
+		/// <exception cref="ArgumentNullException">Thrown when <paramref name="source"/> is null.</exception>
 		public virtual TTarget Create(TSource source)
 		{
 			source.ThrowIfNull("source");

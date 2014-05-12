@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Junior.Common;
+using Junior.Common.Net35;
 
 namespace Junior.Map.Common
 {

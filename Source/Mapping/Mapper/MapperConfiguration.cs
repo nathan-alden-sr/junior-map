@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Common;
 
 namespace Junior.Map.Mapper
@@ -101,12 +101,12 @@ namespace Junior.Map.Mapper
 		{
 			_mappingConfigurationHelper.Validate(
 				propertyInfo =>
-					{
-						bool propertyIsMappedByInvokingAction = Actions.Any(arg => arg.MemberName == propertyInfo.Name);
-						bool propertyIsIgnored = Actions.Any(arg => arg.MemberName == propertyInfo.Name && arg.MapDelegate == null);
+				{
+					bool propertyIsMappedByInvokingAction = Actions.Any(arg => arg.MemberName == propertyInfo.Name);
+					bool propertyIsIgnored = Actions.Any(arg => arg.MemberName == propertyInfo.Name && arg.MapDelegate == null);
 
-						return propertyIsMappedByInvokingAction || propertyIsIgnored;
-					});
+					return propertyIsMappedByInvokingAction || propertyIsIgnored;
+				});
 		}
 
 		private class MapperMapping<TMember> : IMapperMapping<TSource, TTarget, TMember>
@@ -184,20 +184,20 @@ namespace Junior.Map.Mapper
 				var memberMapping = new MemberMapping<TSource>(
 					_memberName,
 					source =>
+					{
+						TMapperSource sourceObject = memberAccessDelegate(source);
+
+						if (sourceObject == null)
 						{
-							TMapperSource sourceObject = memberAccessDelegate(source);
+							return null;
+						}
 
-							if (sourceObject == null)
-							{
-								return null;
-							}
+						var targetTypeMemberInstance = new TMapperTarget();
 
-							var targetTypeMemberInstance = new TMapperTarget();
+						mapper.Map(sourceObject, targetTypeMemberInstance);
 
-							mapper.Map(sourceObject, targetTypeMemberInstance);
-
-							return targetTypeMemberInstance;
-						});
+						return targetTypeMemberInstance;
+					});
 
 				_helper.SetMapping(_memberName, memberMapping);
 			}

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-using Junior.Common;
+using Junior.Common.Net35;
 using Junior.Map.Common;
 
 namespace Junior.Map.Mapper
@@ -21,11 +21,11 @@ namespace Junior.Map.Mapper
 		{
 			return typeof(TTarget).GetAllPublicInstanceProperties()
 				.Where(arg =>
-					{
-						MethodInfo setMethod = arg.GetSetMethod();
+				{
+					MethodInfo setMethod = arg.GetSetMethod();
 
-						return setMethod != null && !setMethod.IsStatic;
-					});
+					return setMethod != null && !setMethod.IsStatic;
+				});
 		}
 	}
 }
