@@ -10,7 +10,7 @@
 		<projectUrl>https://github.com/NathanAlden/JuniorMap</projectUrl>
 		<dependencies>
 			<group>
-				<dependency id="Junior.Common.Net40" version="6.0.0"/>
+				<dependency id="Junior.Common.Net40" version="[7,8)"/>
 			</group>
 		</dependencies>
 		<references>
